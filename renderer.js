@@ -183,7 +183,10 @@ for(var i=0;i<tableHeaders.length;i++)
       //tableData[1] = document.createTextNode(jsonArr[i]['Job Number']);
       //tableData[2] = document.createTextNode(jsonArr[i]["Completed"]);
       //tableData[3] = document.createTextNode(jsonArr[i]["Artist"]);
+    //  console.log(td[3].innerText);
+    //  if(td[3].innerText=="Yoke"){
   table.appendChild(tr[i]);
+//}
 }
   // ...
 });
