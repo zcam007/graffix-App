@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>
+  Dashboard!
+</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link href="style.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <p>Congratulations! You are now logged in.</p>
+
+  <div id="filesubmit">
+    <input type="file" class="file-select"/>
+    <button class="file-submit">SUBMIT</button>
+  </div>
+  <button class=" btn-sm btn-primary" id="signoutbtn">Sign out</button>
+<p id="buildHtmlTable"> hello</p>
+  <table  id="DataTable" border="1">
+    
+
+
+  </table>
+</div>
+</body>
+<script>
+  require('./renderer.js')
+  require('./sql.js')
+
+  require('./landing.js')
+</script>
+</html>
