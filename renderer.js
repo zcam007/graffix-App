@@ -185,7 +185,10 @@ for(var i=0;i<tableHeaders.length;i++)
       //tableData[3] = document.createTextNode(jsonArr[i]["Artist"]);
     //  console.log(td[3].innerText);
     //  if(td[3].innerText=="Yoke"){
+    if(td[3].innerText!='')
+    {
   table.appendChild(tr[i]);
+}
 //}
 }
   // ...
