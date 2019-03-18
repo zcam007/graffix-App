@@ -52,14 +52,23 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+
+
+
+
+
 let selectedFile;
 const storageService = firebase.storage();
 const storageRef = storageService.ref();
 var dnloadURL='';
+if(document.querySelector('.file-select')!=null)
+{
 document.querySelector('.file-select').addEventListener('change', function(e){
     selectedFile = e.target.files[0];
     console.log(selectedFile);
 });
+}
+if(document.querySelector('.file-submit')!=null){
 document.querySelector('.file-submit').addEventListener('click', function(e){
   const uploadTask = storageRef.child(`${"log"}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
   uploadTask.on('state_changed', (snapshot) => {
@@ -86,6 +95,7 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
      //console.log('success');
   });
 });
+}
 function csvtoJson(downloadURL)
 {
   var data='';
@@ -108,10 +118,43 @@ function csvtoJson(downloadURL)
 }
 
 
-
+if(document.querySelector('#buildHtmlTable')!=null){
 document.querySelector('#buildHtmlTable').addEventListener('click',function () {
-  console.log("yes");
-  //var ref = firebase.database().ref('/');
+datapull("buildHtmlTable");
+});
+}
+
+var usersSignInbtn=document.getElementById('usersigninbtn');
+  if(usersSignInbtn!=null){
+    usersSignInbtn.addEventListener('click',function(){
+      document.location.href="users.html";
+    });
+
+  }
+
+
+if(document.querySelector('#usersDataTable')!=null){
+
+datapull("usersDataTable");
+
+}
+
+function snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        item.key = childSnapshot.key;
+
+        returnArr.push(item);
+    });
+
+    return returnArr;
+};
+
+
+function datapull(ID)
+{
   firebase.database().ref('/').once('value').then(function(snapshot) {
   //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
   //console.log(snapshot.val());
@@ -120,7 +163,7 @@ document.querySelector('#buildHtmlTable').addEventListener('click',function () {
   var jsonArr=snapshotToArray(snapshot);
   console.log(jsonArr[0]);
 
-  var table=document.getElementById('DataTable');
+  var table=document.getElementById(ID);
 var tableHeaders=[
     "ID",
     "Job Number",
@@ -159,6 +202,7 @@ var tableHeaders=[
     "Social Media"
 ]
 var th=[];
+var artists=[];
 for(var i=0;i<tableHeaders.length;i++)
 {
   th[i]=document.createElement('th');
@@ -167,7 +211,8 @@ for(var i=0;i<tableHeaders.length;i++)
   table.appendChild(th[i]);
 }
   var tr=[];
-  for(var i=0;i<jsonArr.length;i++ ){
+  for(var i=0;i<jsonArr.length;i++ )
+  {
   tr[i] = document.createElement('tr');
   var td=[];
   var tableData =[];
@@ -177,7 +222,13 @@ for(var i=0;i<tableHeaders.length;i++)
      tr[i].appendChild(td[j]);
      tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
      td[j].appendChild(tableData[j]);
+    // console.log(jsonArr[i]['Artist']);
+
   }
+  //const names = ['John', 'Paul', 'George', 'Ringo', 'John'];
+artists[i]=jsonArr[i]['Artist'];
+
+
     //tableData[0] = document.createTextNode(jsonArr[i][tableHeaders[0]]);
       //tableData[0] = document.createTextNode(jsonArr[i].ID);
       //tableData[1] = document.createTextNode(jsonArr[i]['Job Number']);
@@ -191,37 +242,17 @@ for(var i=0;i<tableHeaders.length;i++)
 }
 //}
 }
+console.log(removeDups(artists));
   // ...
 });
+function removeDups(names) {
+  let unique = {};
+  names.forEach(function(i) {
+    if(!unique[i]) {
+      unique[i] = true;
+    }
+  });
+  return Object.keys(unique);
+}
 
-
-
-/*
-    for (var i = 0 ; i < myList.length ; i++) {
-        var row$ = $('<tr/>');
-        for (var colIndex = 0 ; colIndex < columns.length ; colIndex++) {
-            var cellValue = myList[i][columns[colIndex]];
-
-            if (cellValue == null) { cellValue = ""; }
-
-            row$.append($('<td/>').html(cellValue));
-        }
-        $("#excelDataTable").append(row$);
-    }*/
-});
-
-function snapshotToArray(snapshot) {
-    var returnArr = [];
-
-    snapshot.forEach(function(childSnapshot) {
-        var item = childSnapshot.val();
-        item.key = childSnapshot.key;
-
-        returnArr.push(item);
-    });
-
-    return returnArr;
-};
-// Adds a header row to the table and returns the set of columns.
-// Need to do union of keys from all records as some records may not contain
-// all records
+}
