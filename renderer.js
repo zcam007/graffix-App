@@ -136,8 +136,9 @@ var usersSignInbtn=document.getElementById('usersigninbtn');
 
 if(document.querySelector('#usersDataTable')!=null){
 
-datapull("usersDataTable","All");
+datapull("usersDataTable");
 getArtists();
+getPackage();
 }
 
 function snapshotToArray(snapshot) {
@@ -154,7 +155,7 @@ function snapshotToArray(snapshot) {
 };
 
 
-function datapull(ID,artist)
+function datapull(ID)
 {
   firebase.database().ref('/').once('value').then(function(snapshot) {
   //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
@@ -201,7 +202,16 @@ var tableHeaders=[
     "Plasma",
     "Jpeg",
     "Social Media"
-]
+];
+var colors=[];
+colors[11]="firstDraft";
+colors[12]="toPrint";
+colors[13]="colorPoster";
+colors[15]="postCard";
+colors[16]="postCard";
+colors[17]="_13sheet";
+
+
 var th=[];
 for(var i=0;i<tableHeaders.length;i++)
 {
@@ -222,20 +232,43 @@ for(var i=0;i<tableHeaders.length;i++)
      tr[i].appendChild(td[j]);
      tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
      td[j].appendChild(tableData[j]);
+    if(td[j].innerText!=''){
+      td[j].classList.add(colors[j]);
+    }
   }
-  //td[11].
-  td[11].classList.add("firstDraft");
+  //for eliminating null entries from the csv to show up in the table
     if(td[3].innerText=='')
     {
       continue;
     }
-    if(artist=="All")
+    var artist = document.getElementById("artistDropdown").value;
+    var package = document.getElementById("packageDropdown").value;
+    if(artist=="All" && package=="All")
     {
       table.appendChild(tr[i]);
     }
-    else if(td[3].innerText==artist)
+    else if(artist=="All" && package!="All" )
     {
-    table.appendChild(tr[i]);
+      if(package==td[6].innerText)
+      {
+        table.appendChild(tr[i]);
+      }
+    }
+    else if(artist!="All" && package=="All")
+    {
+      if(artist==td[3].innerText)
+      {
+          table.appendChild(tr[i]);
+      }
+    }
+    else {
+      if(package==td[6].innerText)
+      {
+        if(artist==td[3].innerText)
+        {
+          table.appendChild(tr[i]);
+        }
+      }
     }
 }
 });
@@ -255,6 +288,20 @@ function getArtists()
 });
 }
 
+//Get package name from the data
+function getPackage()
+{
+  var packageArr=[];
+  firebase.database().ref('/').once('value').then(function(snapshot) {
+  var jsonArr=snapshotToArray(snapshot);
+  for(var i=0;i<jsonArr.length;i++ )
+  {
+    packageArr[i]=jsonArr[i]['Package'];
+  }
+  packageLoad(removeDups(packageArr).sort());
+  //console.log(removeDups(packageArr));
+});
+}
 //remove duplicated generic function
 function removeDups(names) {
   let unique = {};
@@ -267,10 +314,24 @@ function removeDups(names) {
 }
 
 //ArtistsLoad Function Start
-function artistsLoad(artists) {
-  console.log(artists);
-  var len=artists.length;
+function artistsLoad(arr) {
+  console.log(arr);
+  var len=arr.length;
   var x = document.getElementById("artistDropdown");
+  for(var i=0;i<len;i++){
+    if(arr[i]!=""){
+    var option = document.createElement("option");
+    option.text = arr[i];
+    option.value=arr[i];
+    x.add(option);
+    }
+  }
+}
+//PackageLoad function start
+function packageLoad(artists) {
+  //console.log(artists);
+  var len=artists.length;
+  var x = document.getElementById("packageDropdown");
   for(var i=0;i<len;i++){
     if(artists[i]!=""){
     var option = document.createElement("option");
@@ -281,12 +342,18 @@ function artistsLoad(artists) {
   }
 }
 
-//Ondropdown change event pull data respectively
+//On artistDropdown change event pull data respectively
 if(document.querySelector('#artistDropdown')!=null)
 {
     document.querySelector('#artistDropdown').addEventListener('change', function(e){
-    var x = document.getElementById("artistDropdown");
-    console.log(x.value);
-    datapull("usersDataTable",x.value);
+    datapull("usersDataTable");
+  });
+}
+
+//On artistDropdown change event pull data respectively
+if(document.querySelector('#packageDropdown')!=null)
+{
+    document.querySelector('#packageDropdown').addEventListener('change', function(e){
+    datapull("usersDataTable");
   });
 }
