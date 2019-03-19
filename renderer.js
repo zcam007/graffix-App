@@ -35,6 +35,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // User is signed in.
     console.log("Loggedin detected: "+user.email);
     var signOutbtn=document.getElementById('signoutbtn');
+    if(signOutbtn!=null)
     signOutbtn.addEventListener('click',function(){
       console.log("Signout Clicked");
       firebase.auth().signOut().then(function() {
@@ -120,7 +121,7 @@ function csvtoJson(downloadURL)
 
 if(document.querySelector('#buildHtmlTable')!=null){
 document.querySelector('#buildHtmlTable').addEventListener('click',function () {
-datapull("buildHtmlTable");
+datapull("buildHtmlTable","All");
 });
 }
 
@@ -135,8 +136,8 @@ var usersSignInbtn=document.getElementById('usersigninbtn');
 
 if(document.querySelector('#usersDataTable')!=null){
 
-datapull("usersDataTable");
-
+datapull("usersDataTable","All");
+getArtists();
 }
 
 function snapshotToArray(snapshot) {
@@ -153,17 +154,17 @@ function snapshotToArray(snapshot) {
 };
 
 
-function datapull(ID)
+function datapull(ID,artist)
 {
   firebase.database().ref('/').once('value').then(function(snapshot) {
   //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
   //console.log(snapshot.val());
   var myObj=snapshot.val();
-  console.log(myObj);
+  //console.log(myObj);
   var jsonArr=snapshotToArray(snapshot);
-  console.log(jsonArr[0]);
-
+  //console.log(jsonArr[0]);
   var table=document.getElementById(ID);
+  table.innerHTML='';
 var tableHeaders=[
     "ID",
     "Job Number",
@@ -202,7 +203,6 @@ var tableHeaders=[
     "Social Media"
 ]
 var th=[];
-var artists=[];
 for(var i=0;i<tableHeaders.length;i++)
 {
   th[i]=document.createElement('th');
@@ -222,29 +222,40 @@ for(var i=0;i<tableHeaders.length;i++)
      tr[i].appendChild(td[j]);
      tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
      td[j].appendChild(tableData[j]);
-    // console.log(jsonArr[i]['Artist']);
-
   }
-  //const names = ['John', 'Paul', 'George', 'Ringo', 'John'];
-artists[i]=jsonArr[i]['Artist'];
-
-
-    //tableData[0] = document.createTextNode(jsonArr[i][tableHeaders[0]]);
-      //tableData[0] = document.createTextNode(jsonArr[i].ID);
-      //tableData[1] = document.createTextNode(jsonArr[i]['Job Number']);
-      //tableData[2] = document.createTextNode(jsonArr[i]["Completed"]);
-      //tableData[3] = document.createTextNode(jsonArr[i]["Artist"]);
-    //  console.log(td[3].innerText);
-    //  if(td[3].innerText=="Yoke"){
-    if(td[3].innerText!='')
+  //td[11].
+  td[11].classList.add("firstDraft");
+    if(td[3].innerText=='')
     {
-  table.appendChild(tr[i]);
+      continue;
+    }
+    if(artist=="All")
+    {
+      table.appendChild(tr[i]);
+    }
+    else if(td[3].innerText==artist)
+    {
+    table.appendChild(tr[i]);
+    }
 }
-//}
-}
-console.log(removeDups(artists));
-  // ...
 });
+}
+
+//Get artists from the data given.
+function getArtists()
+{
+  var artistsArr=[];
+  firebase.database().ref('/').once('value').then(function(snapshot) {
+  var jsonArr=snapshotToArray(snapshot);
+  for(var i=0;i<jsonArr.length;i++ )
+  {
+    artistsArr[i]=jsonArr[i]['Artist'];
+  }
+  artistsLoad(removeDups(artistsArr).sort());
+});
+}
+
+//remove duplicated generic function
 function removeDups(names) {
   let unique = {};
   names.forEach(function(i) {
@@ -255,4 +266,27 @@ function removeDups(names) {
   return Object.keys(unique);
 }
 
+//ArtistsLoad Function Start
+function artistsLoad(artists) {
+  console.log(artists);
+  var len=artists.length;
+  var x = document.getElementById("artistDropdown");
+  for(var i=0;i<len;i++){
+    if(artists[i]!=""){
+    var option = document.createElement("option");
+    option.text = artists[i];
+    option.value=artists[i];
+    x.add(option);
+    }
+  }
+}
+
+//Ondropdown change event pull data respectively
+if(document.querySelector('#artistDropdown')!=null)
+{
+    document.querySelector('#artistDropdown').addEventListener('change', function(e){
+    var x = document.getElementById("artistDropdown");
+    console.log(x.value);
+    datapull("usersDataTable",x.value);
+  });
 }
