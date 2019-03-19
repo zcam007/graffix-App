@@ -2,3 +2,5 @@ node_modules
 credentials.js
 data.xlsx
 data.csv
+requestdata.xlsx
+.DS_Store
