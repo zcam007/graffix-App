@@ -50,7 +50,17 @@ height: 1080px;
 overflow: auto;
 text-align: center;
 }
+.usersTableDiv td{
+  vertical-align: middle;
+}
+.contact{
+  background-color: #FCBF8F;
+}
 
+.blurb
+{
+  background-color: #67967A;
+}
 .firstDraft
 {
   background-color: #FFFF04;
@@ -79,9 +89,16 @@ text-align: center;
 {
   background-color: #948a54;
 }
+.button{
+  background-color: #8DD4FB;
+}
 .bigBanner
 {
   background-color: #FF5596;
+}
+.foamBoard
+{
+  background-color: #70F1FC;
 }
 .windowDecal
 {
@@ -89,4 +106,29 @@ text-align: center;
 }
 .Aframe{
   background-color: #00FF03;
+}
+.paperBanner{
+  background-color: #F9D786;
+}
+.freeSpeech{
+  color: white;
+  background-color: #0700FF;
+}
+.eventSignage{
+  color:white;
+  background-color: #510B06;
+}
+.shirt
+{
+  color: white;
+  background-color: #7030A0;
+}
+.plasma
+{
+  color: white;
+  background-color: #526F96;
+}
+.cancel
+{
+  background-color: #FFC7CE !important;
 }

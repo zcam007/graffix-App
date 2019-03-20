@@ -204,6 +204,8 @@ var tableHeaders=[
     "Social Media"
 ];
 var colors=[];
+colors[5]="contact"
+colors[8]="blurb"
 colors[11]="firstDraft";
 colors[12]="toPrint";
 colors[13]="colorPoster";
@@ -211,10 +213,20 @@ colors[15]="postCard";
 colors[16]="postCard";
 colors[17]="_13sheet";
 colors[18]="utAd"
+colors[19]="brochure"
+colors[20]="brochure"
 colors[21]="brochure"
+colors[22]="button"
 colors[23]="bigBanner";
+colors[24]="foamBoard";
 colors[25]="windowDecal"
 colors[26]="Aframe";
+colors[27]="paperBanner"
+colors[28]="freeSpeech"
+colors[29]="eventSignage";
+colors[30]="shirt";
+colors[32]="plasma";
+colors[33]="plasma";
 var th=[];
 for(var i=0;i<tableHeaders.length;i++)
 {
@@ -238,6 +250,10 @@ for(var i=0;i<tableHeaders.length;i++)
     if(td[j].innerText!=''){
       td[j].classList.add(colors[j]);
     }
+  }
+  if(td[3].innerText=="CANCEL")
+  {
+    tr[i].classList.add("cancel");
   }
   //for eliminating null entries from the csv to show up in the table
     if(td[3].innerText=='')
