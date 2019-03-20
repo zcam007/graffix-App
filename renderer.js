@@ -210,8 +210,11 @@ colors[13]="colorPoster";
 colors[15]="postCard";
 colors[16]="postCard";
 colors[17]="_13sheet";
-
-
+colors[18]="utAd"
+colors[21]="brochure"
+colors[23]="bigBanner";
+colors[25]="windowDecal"
+colors[26]="Aframe";
 var th=[];
 for(var i=0;i<tableHeaders.length;i++)
 {

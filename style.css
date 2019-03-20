@@ -44,13 +44,20 @@ body{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+.usersTableDiv{
+width:100%;
+height: 1080px;
+overflow: auto;
+text-align: center;
+}
+
 .firstDraft
 {
   background-color: #FFFF04;
 }
 .toPrint
 {
-  background-color: #C307EF;
+  background-color: #C3D7EF;
 }
 .colorPoster
 {
@@ -63,4 +70,23 @@ body{
 ._13sheet
 {
   background-color: #76933C;
+}
+.utAd
+{
+  background-color: #808080;
+}
+.brochure
+{
+  background-color: #948a54;
+}
+.bigBanner
+{
+  background-color: #FF5596;
+}
+.windowDecal
+{
+  background-color: #FF4FFF;
+}
+.Aframe{
+  background-color: #00FF03;
 }
