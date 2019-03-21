@@ -44,8 +44,98 @@ body{
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+<<<<<<< HEAD
 #signoutbtn{
   margin-top: .2em;
     margin-right: .2em;
 
+=======
+.usersTableDiv{
+width:100%;
+height: 1080px;
+overflow: auto;
+text-align: center;
+}
+.usersTableDiv td{
+  vertical-align: middle;
+}
+.contact{
+  background-color: #FCBF8F;
+}
+
+.blurb
+{
+  background-color: #67967A;
+}
+.firstDraft
+{
+  background-color: #FFFF04;
+}
+.toPrint
+{
+  background-color: #C3D7EF;
+}
+.colorPoster
+{
+  background-color: #538DD5;
+}
+.postCard
+{
+  background-color: #FF6601;
+}
+._13sheet
+{
+  background-color: #76933C;
+}
+.utAd
+{
+  background-color: #808080;
+}
+.brochure
+{
+  background-color: #948a54;
+}
+.button{
+  background-color: #8DD4FB;
+}
+.bigBanner
+{
+  background-color: #FF5596;
+}
+.foamBoard
+{
+  background-color: #70F1FC;
+}
+.windowDecal
+{
+  background-color: #FF4FFF;
+}
+.Aframe{
+  background-color: #00FF03;
+}
+.paperBanner{
+  background-color: #F9D786;
+}
+.freeSpeech{
+  color: white;
+  background-color: #0700FF;
+}
+.eventSignage{
+  color:white;
+  background-color: #510B06;
+}
+.shirt
+{
+  color: white;
+  background-color: #7030A0;
+}
+.plasma
+{
+  color: white;
+  background-color: #526F96;
+}
+.cancel
+{
+  background-color: #FFC7CE !important;
+>>>>>>> c044ac771b56ae617d35a5acf155ba16d228aaf1
 }

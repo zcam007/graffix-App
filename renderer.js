@@ -35,6 +35,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     // User is signed in.
     console.log("Loggedin detected: "+user.email);
     var signOutbtn=document.getElementById('signoutbtn');
+    if(signOutbtn!=null)
     signOutbtn.addEventListener('click',function(){
       console.log("Signout Clicked");
       firebase.auth().signOut().then(function() {
@@ -52,14 +53,23 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+
+
+
+
+
 let selectedFile;
 const storageService = firebase.storage();
 const storageRef = storageService.ref();
 var dnloadURL='';
+if(document.querySelector('.file-select')!=null)
+{
 document.querySelector('.file-select').addEventListener('change', function(e){
     selectedFile = e.target.files[0];
     console.log(selectedFile);
 });
+}
+if(document.querySelector('.file-submit')!=null){
 document.querySelector('.file-submit').addEventListener('click', function(e){
   const uploadTask = storageRef.child(`${"log"}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
   uploadTask.on('state_changed', (snapshot) => {
@@ -86,6 +96,7 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
      //console.log('success');
   });
 });
+}
 function csvtoJson(downloadURL)
 {
   var data='';
@@ -108,19 +119,53 @@ function csvtoJson(downloadURL)
 }
 
 
-
+if(document.querySelector('#buildHtmlTable')!=null){
 document.querySelector('#buildHtmlTable').addEventListener('click',function () {
-  console.log("yes");
-  //var ref = firebase.database().ref('/');
+datapull("buildHtmlTable","All");
+});
+}
+
+var usersSignInbtn=document.getElementById('usersigninbtn');
+  if(usersSignInbtn!=null){
+    usersSignInbtn.addEventListener('click',function(){
+      document.location.href="users.html";
+    });
+
+  }
+
+
+if(document.querySelector('#usersDataTable')!=null){
+
+datapull("usersDataTable");
+getArtists();
+getPackage();
+}
+
+function snapshotToArray(snapshot) {
+    var returnArr = [];
+
+    snapshot.forEach(function(childSnapshot) {
+        var item = childSnapshot.val();
+        item.key = childSnapshot.key;
+
+        returnArr.push(item);
+    });
+
+    return returnArr;
+};
+
+
+function datapull(ID)
+{
   firebase.database().ref('/').once('value').then(function(snapshot) {
   //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
   //console.log(snapshot.val());
   var myObj=snapshot.val();
-  console.log(myObj);
+  //console.log(myObj);
   var jsonArr=snapshotToArray(snapshot);
-  console.log(jsonArr[0]);
-
-  var table=document.getElementById('DataTable');
+  //console.log(jsonArr[0]);
+  var table=document.getElementById(ID);
+  table.innerHTML='';
 var tableHeaders=[
     "ID",
     "Job Number",
@@ -157,7 +202,31 @@ var tableHeaders=[
     "Plasma",
     "Jpeg",
     "Social Media"
-]
+];
+var colors=[];
+colors[5]="contact"
+colors[8]="blurb"
+colors[11]="firstDraft";
+colors[12]="toPrint";
+colors[13]="colorPoster";
+colors[15]="postCard";
+colors[16]="postCard";
+colors[17]="_13sheet";
+colors[18]="utAd"
+colors[19]="brochure"
+colors[20]="brochure"
+colors[21]="brochure"
+colors[22]="button"
+colors[23]="bigBanner";
+colors[24]="foamBoard";
+colors[25]="windowDecal"
+colors[26]="Aframe";
+colors[27]="paperBanner"
+colors[28]="freeSpeech"
+colors[29]="eventSignage";
+colors[30]="shirt";
+colors[32]="plasma";
+colors[33]="plasma";
 var th=[];
 for(var i=0;i<tableHeaders.length;i++)
 {
@@ -167,7 +236,8 @@ for(var i=0;i<tableHeaders.length;i++)
   table.appendChild(th[i]);
 }
   var tr=[];
-  for(var i=0;i<jsonArr.length;i++ ){
+  for(var i=0;i<jsonArr.length;i++ )
+  {
   tr[i] = document.createElement('tr');
   var td=[];
   var tableData =[];
@@ -177,45 +247,132 @@ for(var i=0;i<tableHeaders.length;i++)
      tr[i].appendChild(td[j]);
      tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
      td[j].appendChild(tableData[j]);
+    if(td[j].innerText!=''){
+      td[j].classList.add(colors[j]);
+    }
   }
-    //tableData[0] = document.createTextNode(jsonArr[i][tableHeaders[0]]);
-      //tableData[0] = document.createTextNode(jsonArr[i].ID);
-      //tableData[1] = document.createTextNode(jsonArr[i]['Job Number']);
-      //tableData[2] = document.createTextNode(jsonArr[i]["Completed"]);
-      //tableData[3] = document.createTextNode(jsonArr[i]["Artist"]);
-  table.appendChild(tr[i]);
-}
-  // ...
-});
-
-
-
-/*
-    for (var i = 0 ; i < myList.length ; i++) {
-        var row$ = $('<tr/>');
-        for (var colIndex = 0 ; colIndex < columns.length ; colIndex++) {
-            var cellValue = myList[i][columns[colIndex]];
-
-            if (cellValue == null) { cellValue = ""; }
-
-            row$.append($('<td/>').html(cellValue));
+  if(td[3].innerText=="CANCEL")
+  {
+    tr[i].classList.add("cancel");
+  }
+  //for eliminating null entries from the csv to show up in the table
+    if(td[3].innerText=='')
+    {
+      continue;
+    }
+    var artist = document.getElementById("artistDropdown").value;
+    var package = document.getElementById("packageDropdown").value;
+    if(artist=="All" && package=="All")
+    {
+      table.appendChild(tr[i]);
+    }
+    else if(artist=="All" && package!="All" )
+    {
+      if(package==td[6].innerText)
+      {
+        table.appendChild(tr[i]);
+      }
+    }
+    else if(artist!="All" && package=="All")
+    {
+      if(artist==td[3].innerText)
+      {
+          table.appendChild(tr[i]);
+      }
+    }
+    else {
+      if(package==td[6].innerText)
+      {
+        if(artist==td[3].innerText)
+        {
+          table.appendChild(tr[i]);
         }
-        $("#excelDataTable").append(row$);
-    }*/
+      }
+    }
+}
 });
+}
 
-function snapshotToArray(snapshot) {
-    var returnArr = [];
+//Get artists from the data given.
+function getArtists()
+{
+  var artistsArr=[];
+  firebase.database().ref('/').once('value').then(function(snapshot) {
+  var jsonArr=snapshotToArray(snapshot);
+  for(var i=0;i<jsonArr.length;i++ )
+  {
+    artistsArr[i]=jsonArr[i]['Artist'];
+  }
+  artistsLoad(removeDups(artistsArr).sort());
+});
+}
 
-    snapshot.forEach(function(childSnapshot) {
-        var item = childSnapshot.val();
-        item.key = childSnapshot.key;
+//Get package name from the data
+function getPackage()
+{
+  var packageArr=[];
+  firebase.database().ref('/').once('value').then(function(snapshot) {
+  var jsonArr=snapshotToArray(snapshot);
+  for(var i=0;i<jsonArr.length;i++ )
+  {
+    packageArr[i]=jsonArr[i]['Package'];
+  }
+  packageLoad(removeDups(packageArr).sort());
+  //console.log(removeDups(packageArr));
+});
+}
+//remove duplicated generic function
+function removeDups(names) {
+  let unique = {};
+  names.forEach(function(i) {
+    if(!unique[i]) {
+      unique[i] = true;
+    }
+  });
+  return Object.keys(unique);
+}
 
-        returnArr.push(item);
-    });
+//ArtistsLoad Function Start
+function artistsLoad(arr) {
+  console.log(arr);
+  var len=arr.length;
+  var x = document.getElementById("artistDropdown");
+  for(var i=0;i<len;i++){
+    if(arr[i]!=""){
+    var option = document.createElement("option");
+    option.text = arr[i];
+    option.value=arr[i];
+    x.add(option);
+    }
+  }
+}
+//PackageLoad function start
+function packageLoad(artists) {
+  //console.log(artists);
+  var len=artists.length;
+  var x = document.getElementById("packageDropdown");
+  for(var i=0;i<len;i++){
+    if(artists[i]!=""){
+    var option = document.createElement("option");
+    option.text = artists[i];
+    option.value=artists[i];
+    x.add(option);
+    }
+  }
+}
 
-    return returnArr;
-};
-// Adds a header row to the table and returns the set of columns.
-// Need to do union of keys from all records as some records may not contain
-// all records
+//On artistDropdown change event pull data respectively
+if(document.querySelector('#artistDropdown')!=null)
+{
+    document.querySelector('#artistDropdown').addEventListener('change', function(e){
+    datapull("usersDataTable");
+  });
+}
+
+//On artistDropdown change event pull data respectively
+if(document.querySelector('#packageDropdown')!=null)
+{
+    document.querySelector('#packageDropdown').addEventListener('change', function(e){
+    datapull("usersDataTable");
+  });
+}

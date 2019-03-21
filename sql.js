@@ -28,7 +28,7 @@ connection.query($query, function(err, rows, fields) {
     console.log(rows);
     var json2xls = require('json2xls');
     var xls = json2xls(rows);
-    fs.writeFileSync('data.xlsx', xls, 'binary');
+    fs.writeFileSync('requestdata.xlsx', xls, 'binary');
 
 });
 
