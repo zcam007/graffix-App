@@ -289,22 +289,22 @@ for(var i=0;i<tableHeaders.length;i++)
     }
     else if(artist=="All" && package!="All" )
     {
-      if(package==td[6].innerText)
+      if(package==td[PACKAGE].innerText)
       {
         table.appendChild(tr[i]);
       }
     }
     else if(artist!="All" && package=="All")
     {
-      if(artist==td[3].innerText)
+      if(artist==td[ARTIST].innerText)
       {
           table.appendChild(tr[i]);
       }
     }
     else {
-      if(package==td[6].innerText)
+      if(package==td[PACKAGE].innerText)
       {
-        if(artist==td[3].innerText)
+        if(artist==td[ARTIST].innerText)
         {
           table.appendChild(tr[i]);
         }
