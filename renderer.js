@@ -155,6 +155,14 @@ function snapshotToArray(snapshot) {
 };
 
 
+//CONSTANTS
+const ARTIST=3;
+const PACKAGE=6;
+
+
+
+
+
 function datapull(ID)
 {
   firebase.database().ref('/').once('value').then(function(snapshot) {
@@ -204,29 +212,29 @@ var tableHeaders=[
     "Social Media"
 ];
 var colors=[];
-colors[5]="contact"
-colors[8]="blurb"
-colors[11]="firstDraft";
-colors[12]="toPrint";
-colors[13]="colorPoster";
-colors[15]="postCard";
-colors[16]="postCard";
-colors[17]="_13sheet";
-colors[18]="utAd"
-colors[19]="brochure"
-colors[20]="brochure"
-colors[21]="brochure"
-colors[22]="button"
-colors[23]="bigBanner";
-colors[24]="foamBoard";
-colors[25]="windowDecal"
-colors[26]="Aframe";
-colors[27]="paperBanner"
-colors[28]="freeSpeech"
-colors[29]="eventSignage";
-colors[30]="shirt";
-colors[32]="plasma";
-colors[33]="plasma";
+colors[5]="sContact"
+colors[8]="sBlurb"
+colors[11]="sFirstDraft";
+colors[12]="sToPrint";
+colors[13]="sColorPoster";
+colors[15]="sPostCard";
+colors[16]="sPostCard";
+colors[17]="s13sheet";
+colors[18]="sUtAd"
+colors[19]="sBrochure"
+colors[20]="sBrochure"
+colors[21]="sBrochure"
+colors[22]="sButton"
+colors[23]="sBigBanner";
+colors[24]="sFoamBoard";
+colors[25]="sWindowDecal"
+colors[26]="sAframe";
+colors[27]="sPaperBanner"
+colors[28]="sFreeSpeech"
+colors[29]="sEventSignage";
+colors[30]="sShirt";
+colors[32]="sPlasma";
+colors[33]="sPlasma";
 var th=[];
 for(var i=0;i<tableHeaders.length;i++)
 {
@@ -251,12 +259,25 @@ for(var i=0;i<tableHeaders.length;i++)
       td[j].classList.add(colors[j]);
     }
   }
-  if(td[3].innerText=="CANCEL")
+  //ADD BG-COLOR TO CANCEL USING THIS LOGIC
+  if(td[ARTIST].innerText=="CANCEL")
   {
-    tr[i].classList.add("cancel");
+    tr[i].classList.add("sCancel"); // Adding cancel css class
+  }
+  if(td[PACKAGE].innerText.includes("WEB"))
+  {
+    td[PACKAGE].classList.add("sWeb");
+  }
+  else if(td[PACKAGE].innerText.includes("CAM"))
+  {
+    td[PACKAGE].classList.add("sCamPackage");
+  }
+  else if(td[PACKAGE].innerText.includes("SHIRT"))
+  {
+    td[PACKAGE].classList.add("sShirtPackage");
   }
   //for eliminating null entries from the csv to show up in the table
-    if(td[3].innerText=='')
+    if(td[ARTIST].innerText=='')
     {
       continue;
     }

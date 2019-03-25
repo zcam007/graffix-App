@@ -57,78 +57,93 @@ text-align: center;
   background-color: #FCBF8F;
 }
 
-.blurb
+.sBlurb
 {
   background-color: #67967A;
 }
-.firstDraft
+.sFirstDraft
 {
   background-color: #FFFF04;
 }
-.toPrint
+.sToPrint
 {
   background-color: #C3D7EF;
 }
-.colorPoster
+.sColorPoster
 {
   background-color: #538DD5;
 }
-.postCard
+.sPostCard
 {
   background-color: #FF6601;
 }
-._13sheet
+.s13sheet
 {
   background-color: #76933C;
 }
-.utAd
+.sUtAd
 {
   background-color: #808080;
 }
-.brochure
+.sBrochure
 {
   background-color: #948a54;
 }
-.button{
+.sButton{
   background-color: #8DD4FB;
 }
-.bigBanner
+.sBigBanner
 {
   background-color: #FF5596;
 }
-.foamBoard
+.sFoamBoard
 {
   background-color: #70F1FC;
 }
-.windowDecal
+.sWindowDecal
 {
   background-color: #FF4FFF;
 }
-.Aframe{
+.sAframe{
   background-color: #00FF03;
 }
-.paperBanner{
+.sPaperBanner{
   background-color: #F9D786;
 }
-.freeSpeech{
+.sFreeSpeech{
   color: white;
   background-color: #0700FF;
 }
-.eventSignage{
+.sEventSignage{
   color:white;
   background-color: #510B06;
 }
-.shirt
+.sShirt
 {
   color: white;
   background-color: #7030A0;
 }
-.plasma
+.sPlasma
 {
   color: white;
   background-color: #526F96;
 }
-.cancel
+.sCancel
 {
-  background-color: #FFC7CE !important;
+  background-color: #FFC7CE;
+}
+.sWeb
+{
+  color: white;
+  background-color: #1531F4;
+}
+.sCamPackage
+{
+  color: white;
+  background-color: #B62619;
+}
+.sShirtPackage
+{
+  color: white;
+  background-color: #5D4A77;
 }
