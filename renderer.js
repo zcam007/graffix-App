@@ -125,6 +125,8 @@ datapull("buildHtmlTable","All");
 });
 }
 
+
+//function
 var usersSignInbtn=document.getElementById('usersigninbtn');
   if(usersSignInbtn!=null){
     usersSignInbtn.addEventListener('click',function(){
@@ -255,10 +257,39 @@ for(var i=0;i<tableHeaders.length;i++)
      tr[i].appendChild(td[j]);
      tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
      td[j].appendChild(tableData[j]);
+
+
+
     if(td[j].innerText!=''){
       td[j].classList.add(colors[j]);
     }
   }
+
+
+
+
+// var artistsArr=[];
+// firebase.database().ref('/').once('value').then(function(snapshot) {
+// var jsonArr=snapshotToArray(snapshot);
+// for(var i=0;i<jsonArr.length;i++ )
+// {
+//   artistsArr[i]=jsonArr[i]['Artist'];
+// }
+//
+// });
+// removeDups(artistsArr).sort()
+
+var testArr = ["Yuchen","kim","Anthony","Yoke"];
+var artistColor =["artistColor1","artistColor2","artistColor3","artistColor4"]
+for(var k=0;k<testArr.length;k++){
+  if(td[ARTIST].innerText==testArr[k])
+  {
+    td[ARTIST].classList.add(artistColor[k]);
+  }
+}
+
+
+
   //ADD BG-COLOR TO CANCEL USING THIS LOGIC
   if(td[ARTIST].innerText=="CANCEL")
   {
@@ -276,6 +307,10 @@ for(var i=0;i<tableHeaders.length;i++)
   {
     td[PACKAGE].classList.add("sShirtPackage");
   }
+
+
+
+
   //for eliminating null entries from the csv to show up in the table
     if(td[ARTIST].innerText=='')
     {
@@ -325,6 +360,7 @@ function getArtists()
     artistsArr[i]=jsonArr[i]['Artist'];
   }
   artistsLoad(removeDups(artistsArr).sort());
+  return artistsArr;
 });
 }
 
