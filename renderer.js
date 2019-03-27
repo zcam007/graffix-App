@@ -265,30 +265,29 @@ for(var i=0;i<tableHeaders.length;i++)
     }
   }
 
-
-
-
-// var artistsArr=[];
-// firebase.database().ref('/').once('value').then(function(snapshot) {
-// var jsonArr=snapshotToArray(snapshot);
-// for(var i=0;i<jsonArr.length;i++ )
-// {
-//   artistsArr[i]=jsonArr[i]['Artist'];
-// }
-//
-// });
-// removeDups(artistsArr).sort()
-
-var testArr = ["Yuchen","kim","Anthony","Yoke"];
-var artistColor =["artistColor1","artistColor2","artistColor3","artistColor4"]
-for(var k=0;k<testArr.length;k++){
-  if(td[ARTIST].innerText==testArr[k])
+var artistsArr=[];
+for(var k=0;k<jsonArr.length;k++ )
+{
+  artistsArr[k]=jsonArr[k]['Artist'];
+}
+artistsArr=removeDups(artistsArr).sort();
+var artistColor=[];
+for(var k=1;k<=artistsArr.length;k++)
+{
+  artistColor[k]="artistColor"+k;
+}
+for(var k=0;k<artistsArr.length;k++){
+  if(td[ARTIST].innerText==artistsArr[k])
   {
+    if(td[ARTIST].innerText=="CANCEL")
+    {
+    td[ARTIST].classList.add("sCanceltext");
+    }
+    else{
     td[ARTIST].classList.add(artistColor[k]);
   }
+  }
 }
-
-
 
   //ADD BG-COLOR TO CANCEL USING THIS LOGIC
   if(td[ARTIST].innerText=="CANCEL")

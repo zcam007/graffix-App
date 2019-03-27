@@ -132,6 +132,11 @@ text-align: center;
 {
   background-color: #FFC7CE;
 }
+.sCanceltext
+{
+  color: firebrick;
+  font-weight:550;
+}
 .sWeb
 {
   color: white;
@@ -147,65 +152,71 @@ text-align: center;
   color: white;
   background-color: #5D4A77;
 }
-
-
-
 .artistColor1{
-  background-color: #436b09;
+  background-color:#F3B643;
 }
 
 .artistColor2{
-  background-color: #f91fbb;
+color:white;
+  background-color: #67967A;
 }
 
 .artistColor3{
-  background-color: #58e399;
+  background-color: #F2ADDC;
 }
 
 .artistColor4{
-  background-color: #bde254;
+  color: white;
+  background-color: #92902C;
 }
-/*
-.artistColor5{
 
+.artistColor5{
+  color: white;
+ background-color: #7A401A;
 }
 
 .artistColor6{
-
+color: white;
+   background-color: #4294F7;
 }
 
 .artistColor7{
-
+color:white;
+   background-color: #992A30;
 }
 
 .artistColor8{
-
+  color:white;
+background-color: #3F8F92;
 }
 
 .artistColor9{
-
+  color: white;
+background-color: #4B13F5;
 }
 
 .artistColor10{
-
+  color:white;
+background-color: #385391;
 }
 
 .artistColor11{
-
+  color: white;
+background-color: #882B8E;
 }
 
 .artistColor12{
-
+background-color: #58e399;
 }
 
 .artistColor13{
-
+background-color: #bde254;
 }
 
 .artistColor14{
-
+  background-color: #436b09;
 }
 
 .artistColor15{
-
-} */
+background-color: #f91fbb;
+}
