@@ -360,7 +360,6 @@ function getArtists()
     artistsArr[i]=jsonArr[i]['Artist'];
   }
   artistsLoad(removeDups(artistsArr).sort());
-  return artistsArr;
 });
 }
 
