@@ -92,6 +92,17 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
     console.log('File available at', downloadURL);
     csvtoJson(downloadURL);
+    var ref = firebase.database().ref('/');
+    //For last updated timestamp - pushing at last of json obj to firebase.
+    var currentdate = new Date();
+    var datetime = (currentdate.getMonth()+1) + "/"
+                + currentdate.getDate()  + "/"
+                + currentdate.getFullYear() + " @ "
+                + currentdate.getHours() + ":"
+                + currentdate.getMinutes() + ":"
+                + currentdate.getSeconds();
+    ref.set({'timestamp':datetime});
+
   });
      //console.log('success');
   });
@@ -160,7 +171,7 @@ function snapshotToArray(snapshot) {
 //CONSTANTS
 const ARTIST=3;
 const PACKAGE=6;
-
+const CANCEL="CANCEL";
 
 
 
@@ -168,12 +179,14 @@ const PACKAGE=6;
 function datapull(ID)
 {
   firebase.database().ref('/').once('value').then(function(snapshot) {
-  //var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-  //console.log(snapshot.val());
+    var jsonArr=snapshotToArray(snapshot);
+
+    var lastUpdatedText=document.getElementById('lastUpdated');
+    if(lastUpdatedText!=null){
+      //jsonArr last key is timestamp
+      lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
+    }
   var myObj=snapshot.val();
-  //console.log(myObj);
-  var jsonArr=snapshotToArray(snapshot);
-  //console.log(jsonArr[0]);
   var table=document.getElementById(ID);
   table.innerHTML='';
 var tableHeaders=[
@@ -246,7 +259,7 @@ for(var i=0;i<tableHeaders.length;i++)
   table.appendChild(th[i]);
 }
   var tr=[];
-  for(var i=0;i<jsonArr.length;i++ )
+  for(var i=0;i<jsonArr.length-1;i++ )
   {
   tr[i] = document.createElement('tr');
   var td=[];
@@ -266,7 +279,7 @@ for(var i=0;i<tableHeaders.length;i++)
   }
 
 var artistsArr=[];
-for(var k=0;k<jsonArr.length;k++ )
+for(var k=0;k<jsonArr.length-1;k++ )
 {
   artistsArr[k]=jsonArr[k]['Artist'];
 }
@@ -276,10 +289,11 @@ for(var k=1;k<=artistsArr.length;k++)
 {
   artistColor[k]="artistColor"+k;
 }
+
 for(var k=0;k<artistsArr.length;k++){
   if(td[ARTIST].innerText==artistsArr[k])
   {
-    if(td[ARTIST].innerText=="CANCEL")
+    if(td[ARTIST].innerText==CANCEL)
     {
     td[ARTIST].classList.add("sCanceltext");
     }
@@ -290,7 +304,7 @@ for(var k=0;k<artistsArr.length;k++){
 }
 
   //ADD BG-COLOR TO CANCEL USING THIS LOGIC
-  if(td[ARTIST].innerText=="CANCEL")
+  if(td[ARTIST].innerText==CANCEL)
   {
     tr[i].classList.add("sCancel"); // Adding cancel css class
   }
@@ -306,8 +320,6 @@ for(var k=0;k<artistsArr.length;k++){
   {
     td[PACKAGE].classList.add("sShirtPackage");
   }
-
-
 
 
   //for eliminating null entries from the csv to show up in the table
@@ -346,6 +358,8 @@ for(var k=0;k<artistsArr.length;k++){
     }
 }
 });
+
+
 }
 
 //Get artists from the data given.
@@ -354,7 +368,7 @@ function getArtists()
   var artistsArr=[];
   firebase.database().ref('/').once('value').then(function(snapshot) {
   var jsonArr=snapshotToArray(snapshot);
-  for(var i=0;i<jsonArr.length;i++ )
+  for(var i=0;i<jsonArr.length-1;i++ )
   {
     artistsArr[i]=jsonArr[i]['Artist'];
   }
@@ -369,7 +383,7 @@ function getPackage()
   var packageArr=[];
   firebase.database().ref('/').once('value').then(function(snapshot) {
   var jsonArr=snapshotToArray(snapshot);
-  for(var i=0;i<jsonArr.length;i++ )
+  for(var i=0;i<jsonArr.length-1;i++ )
   {
     packageArr[i]=jsonArr[i]['Package'];
   }
