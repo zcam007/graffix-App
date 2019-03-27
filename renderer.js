@@ -173,7 +173,7 @@ function datapull(ID)
   var myObj=snapshot.val();
   //console.log(myObj);
   var jsonArr=snapshotToArray(snapshot);
-  //console.log(jsonArr[0]);
+  console.log(jsonArr[0]);
   var table=document.getElementById(ID);
   table.innerHTML='';
 var tableHeaders=[
@@ -244,6 +244,33 @@ for(var i=0;i<tableHeaders.length;i++)
   var heading=document.createTextNode(tableHeaders[i]);
   th[i].appendChild(heading);
   table.appendChild(th[i]);
+
+  if(i<4){
+    th[i].classList.add("headerColor1");
+  }else if (i<8){
+    th[i].classList.add("headerColor2");
+  }else if (i<13){
+    th[i].classList.add("headerColor1");
+  }else if (i<23){
+    th[i].classList.add("headerColor2");
+  }else if (i<26){
+    th[i].classList.add("headerColor1");
+  }else if (i<30){
+    th[i].classList.add("headerColor2");
+  }else if (i<32){
+    th[i].classList.add("headerColor1");
+  }else if (i>31){
+    th[i].classList.add("headerColor2");
+  }
+  // if(){
+  //
+  // }
+  // if(){
+  //
+  // }
+  // if(){
+  //
+  // }
 }
   var tr=[];
   for(var i=0;i<jsonArr.length;i++ )
@@ -265,6 +292,8 @@ for(var i=0;i<tableHeaders.length;i++)
     }
   }
 
+
+
 var artistsArr=[];
 for(var k=0;k<jsonArr.length;k++ )
 {
@@ -276,6 +305,8 @@ for(var k=1;k<=artistsArr.length;k++)
 {
   artistColor[k]="artistColor"+k;
 }
+
+//adding BG color to artists
 for(var k=0;k<artistsArr.length;k++){
   if(td[ARTIST].innerText==artistsArr[k])
   {
