@@ -220,3 +220,23 @@ background-color: #bde254;
 .artistColor15{
 background-color: #f91fbb;
 }
+
+
+#artistDropdown{
+  width:20em;
+  margin: .5em;
+}
+
+
+#packageDropdown{
+  width:20em;
+  margin: .5em;
+}
+
+.headerColor1{
+    background-color: #D0CECE;
+}
+
+.headerColor2{
+  background-color: #AEAAAA;
+}

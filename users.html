@@ -15,9 +15,35 @@
     <link href="style.css" rel="stylesheet">
   </head>
 
+  <!-- //nav bar -->
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <a class="navbar-brand" href=""><img src="/Users/mac/graffix-App/Public/Graffix-Logo.png"  class="d-inline-block align-top" alt=""></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <select class="form-control btn btn-primary dropdown-toggle "   id="artistDropdown">
+            <option value="All">All Artists</option>
+          </select>
+        </li>
+        <li class="nav-item">
+          <select class="form-control btn btn-primary dropdown-toggle"   id="packageDropdown">
+            <option value="All">All Packages</option>
+          </select>
+        </li>
+
+
+      </ul>
+    </div>
+  </nav>
+<!-- //navbar -->
+
 
   <body id="userPageBody">
     <div class="ccontainer">
+<<<<<<< HEAD
       <select class="form-control btn btn-primary dropdown-toggle col-3" id="artistDropdown">
         <option value="All">All Artists</option>
       </select>
@@ -26,6 +52,11 @@
       </select>
 <button class="btn-sm btn-secondary " id="goBackBtn">Go Back</button>
 <small id="lastUpdated" class="text-muted"></small>
+=======
+
+
+
+>>>>>>> Stewart
       <div class="usersTableDiv">
         <table  id="usersDataTable" border="1" class="table table-hover" ></table>
       </div>
