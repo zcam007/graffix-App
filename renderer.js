@@ -187,12 +187,6 @@ function datapull(ID)
       lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
     }
   var myObj=snapshot.val();
-<<<<<<< HEAD
-=======
-  //console.log(myObj);
-  var jsonArr=snapshotToArray(snapshot);
-  console.log(jsonArr[0]);
->>>>>>> Stewart
   var table=document.getElementById(ID);
   table.innerHTML='';
 var tableHeaders=[
@@ -325,10 +319,6 @@ for(var k=1;k<=artistsArr.length;k++)
   artistColor[k]="artistColor"+k;
 }
 
-<<<<<<< HEAD
-=======
-//adding BG color to artists
->>>>>>> Stewart
 for(var k=0;k<artistsArr.length;k++){
   if(td[ARTIST].innerText==artistsArr[k])
   {
