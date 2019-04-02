@@ -8,8 +8,8 @@
     "start": "electron .",
     "pack": "build --dir",
     "dist": "build",
-    "build": "build --win",
-       "ship": "build --win -p always"
+    "build": "build --x64 --mac",
+       "ship": "build --x64 --mac -p always"
   },
   "build": {
     "appId": "graffixApp",
@@ -28,7 +28,7 @@
       ]
     }
   },
-  "repository": "https://github.com/zcam007/graffix-App",
+  "repository": "https://github.com/zcam007/graffix-App.git",
   "keywords": [
     "Electron",
     "quick",
