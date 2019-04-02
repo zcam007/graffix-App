@@ -1,12 +1,34 @@
 {
-  "name": "electron-quick-start",
+  "name": "GraffixApp",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "An app that shows the projects of students.",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "postinstall": "install-app-deps",
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build",
+    "build": "build --win",
+       "ship": "build --win -p always"
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "build": {
+    "appId": "graffixApp",
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    }
+  },
+  "repository": "https://github.com/zcam007/graffix-App",
   "keywords": [
     "Electron",
     "quick",
@@ -17,12 +39,14 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^4.0.6"
+    "electron": "^4.0.6",
+    "electron-builder": "^20.39.0"
   },
   "dependencies": {
     "csv": "^5.1.1",
     "csvtojson": "^2.0.8",
     "dialog": "^0.3.1",
+    "electron-updater": "^4.0.6",
     "export-to-csv": "^0.2.1",
     "https": "^1.0.0",
     "json2csv": "^4.3.5",
