@@ -2,6 +2,14 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
+var appVersion = require('electron').remote.app.getVersion();
+
+var appVObj=document.getElementById('version');
+//console.log(appVObj);
+if(appVObj!=null){
+//  console.log(appVersion);
+appVObj.innerHTML="App Version:"+appVersion;
+}
 var firebase=require('./firebase/firebase.js');
 var creds=require("./credentials.js")
 require('./jquery.min.js')

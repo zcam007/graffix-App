@@ -36,25 +36,26 @@
       <button class="btn btn-lg btn-primary btn-block" id="usersigninbtn">User Sign in</button>
 
       <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>
+      <span id="version"></span>
+      <!-- the button onClick sends a quitAndInstall message to the electron main process -->
+      <button id="ready" onClick="ipcRenderer.send('quitAndInstall')">Up to date</button>
     </div>
   </div>
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
+
     <script>
             const ipcRenderer = require('electron').ipcRenderer;
             // wait for an updateReady message
             ipcRenderer.on('updateReady', function(event, text) {
                 // changes the text of the button
                 var container = document.getElementById('ready');
-                container.innerHTML = "new version ready!";
+                container.innerHTML = "New Update Available!";
             })
         </script>
-        Version: <span id="version">v0.1.9</span>
-        <!-- the button onClick sends a quitAndInstall message to the electron main process -->
-        <button id="ready" onClick="ipcRenderer.send('quitAndInstall')">no updates ready</button>
 
 
+        <script>
+          // You can also require other files to run in this process
+          require('./renderer.js')
+        </script>
   </body>
 </html>
