@@ -67,8 +67,36 @@ if(document.querySelector('.file-select')!=null)
 document.querySelector('.file-select').addEventListener('change', function(e){
     selectedFile = e.target.files[0];
     console.log(selectedFile);
+    var infoArea = document.getElementById( 'file-upload-filename' );
+    // the change event gives us the input it occurred in
+var input = e.srcElement;
+var fileName = input.files[0].name;
+infoArea.innerHTML = 'Selected file: ' + fileName;
+
+//enabling submit button only if the file is slected
+if(infoArea.innerHTML!=""){
+  console.log(infoArea.innerHTML);
+  document.getElementById('inputGroupFileAddon02').disabled=false;
+}
+
 });
 }
+
+var fileName = document.getElementById( 'file-upload-filename' );
+if (fileName!=null){
+if(fileName.innerHTML=="")
+{
+  //console.log("")
+  document.getElementById('inputGroupFileAddon02').disabled=true;
+}
+else
+{
+
+    document.getElementById('inputGroupFileAddon02').disabled=false;
+}
+
+}
+
 if(document.querySelector('.file-submit')!=null){
 document.querySelector('.file-submit').addEventListener('click', function(e){
   const uploadTask = storageRef.child(`${"log"}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
@@ -86,9 +114,11 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
       }
   }, (error) => {
     // Handle unsuccessful uploads
+     alert("Upload Unsuccesfull.. Please try again!");
     console.log(error);
   }, () => {
      // Do something once upload is complete
+
     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
     console.log('File available at', downloadURL);
     csvtoJson(downloadURL);
@@ -102,9 +132,11 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
                 + currentdate.getMinutes() + ":"
                 + currentdate.getSeconds();
     ref.set({'timestamp':datetime});
-
+//location.reload();
   });
      //console.log('success');
+     alert("Upload Succesfull");
+     //
   });
 });
 }
@@ -127,12 +159,16 @@ function csvtoJson(downloadURL)
  },(error)=>{
    console.log(error);
  })
+ //location.reload();
 }
 
 
 if(document.querySelector('#buildHtmlTable')!=null){
 document.querySelector('#buildHtmlTable').addEventListener('click',function () {
-datapull("buildHtmlTable","All");
+//datapull("buildHtmlTable","All");
+datapull("usersDataTable");
+getArtists();
+getPackage();
 });
 }
 

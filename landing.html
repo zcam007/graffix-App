@@ -22,16 +22,39 @@
     <div class="custom-file">
       <input type="file" class="f custom-file-input file-select" id="inputGroupFile02">
       <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+
     </div>
     <div class="input-group-append file-submit">
-      <span class="input-group-text" id="inputGroupFileAddon02">Upload</span>
+      <button class="input-group-text" id="inputGroupFileAddon02">Upload</button>
     </div>
   </div>
+  <div id="file-upload-filename"></div>
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <select class="form-control btn btn-primary dropdown-toggle "   id="artistDropdown">
+            <option value="All">All Artists</option>
+          </select>
+        </li>
+        <li class="nav-item">
+          <select class="form-control btn btn-primary dropdown-toggle"   id="packageDropdown">
+            <option value="All">All Packages</option>
+          </select>
+        </li>
 
 
-<p id="buildHtmlTable"> hello</p>
-  <table  id="DataTable" border="1">
+      </ul>
+      &nbsp;&nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
+    </div>
+  </nav>
 
+  <div class="usersTableDiv">
+    <table  id="usersDataTable" border="1" class="table table-hover" ></table>
+  </div>
 
 
   </table>
