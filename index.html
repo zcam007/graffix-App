@@ -48,8 +48,10 @@
     <script>
             const ipcRenderer = require('electron').ipcRenderer;
             // wait for an updateReady message
+
             ipcRenderer.on('updateReady', function(event, text) {
                 // changes the text of the button
+console.log("test");
                 var container = document.getElementById('ready');
                 container.innerHTML = "New Update Available!";
                 container.disabled=false;
