@@ -2,18 +2,20 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
+//Get App Version number
 var appVersion = require('electron').remote.app.getVersion();
-
 var appVObj=document.getElementById('version');
-//console.log(appVObj);
 if(appVObj!=null){
-//  console.log(appVersion);
 appVObj.innerHTML="App Version:"+appVersion;
 }
+
+//imports
 var firebase=require('./firebase/firebase.js');
 var creds=require("./credentials.js")
 require('./jquery.min.js')
 firebase.initializeApp(creds.calstalelausufirebase);
+
+
 
 var signInbtn=document.getElementById('signinbtn');
   if(signInbtn!=null){
@@ -85,8 +87,12 @@ infoArea.innerHTML = 'Selected file: ' + fileName;
 if(infoArea.innerHTML!=""){
   console.log(infoArea.innerHTML);
   document.getElementById('inputGroupFileAddon02').disabled=false;
+  document.getElementById('downloadDatabase').disabled=true;
 }
-
+else
+{
+  document.getElementById('downloadDatabase').disabled=false;
+}
 });
 }
 

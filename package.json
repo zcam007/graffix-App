@@ -9,7 +9,7 @@
     "pack": "build --dir",
     "dist": "build",
     "build": "build --x64 --mac",
-       "ship": "build --x64 --mac -p always"
+    "ship": "build --x64 --mac -p always"
   },
   "build": {
     "appId": "graffixApp",
@@ -30,13 +30,12 @@
   },
   "repository": "https://github.com/zcam007/graffix-App.git",
   "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "Graffix",
+    "App",
+    "Calstatela",
+    "Student Union"
   ],
-  "author": "GitHub",
+  "author": "Chandu",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^4.0.6",
@@ -52,6 +51,7 @@
     "json2csv": "^4.3.5",
     "json2xls": "^0.1.2",
     "mysql": "^2.16.0",
+    "path": "^0.12.7",
     "remote": "^0.2.6"
   }
 }

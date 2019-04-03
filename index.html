@@ -35,10 +35,13 @@
       <button class="btn btn-lg btn-primary btn-block" id="signinbtn">Admin Sign in</button>
       <button class="btn btn-lg btn-primary btn-block" id="usersigninbtn">User Sign in</button>
 
-      <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>
+
+      <center>
+          <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>
       <span id="version"></span>
       <!-- the button onClick sends a quitAndInstall message to the electron main process -->
-      <button id="ready" onClick="ipcRenderer.send('quitAndInstall')">Up to date</button>
+      <button id="ready" disabled onClick="ipcRenderer.send('quitAndInstall')">Up to date</button>
+    </center>
     </div>
   </div>
 
@@ -49,6 +52,7 @@
                 // changes the text of the button
                 var container = document.getElementById('ready');
                 container.innerHTML = "New Update Available!";
+                container.disabled=false;
             })
         </script>
 
