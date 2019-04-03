@@ -18,17 +18,25 @@
     <input type="file" class="file-select"/>
     <button class="file-submit">SUBMIT</button>
   </div> -->
-  <div id="filesubmit" class="input-group ">
+  <br><br><br><br>
+  <div id="filesubmit" class="input-group " >
     <div class="custom-file">
       <input type="file" class="f custom-file-input file-select" id="inputGroupFile02">
-      <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+      <label class="custom-file-label"  for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
 
     </div>
     <div class="input-group-append file-submit">
-      <button class="input-group-text" id="inputGroupFileAddon02">Upload</button>
+      <button class="btn btn-info" id="inputGroupFileAddon02">Upload</button>
     </div>
+    <div class="input-group-append ">
+      <button class="btn btn-warning" id="downloadDatabase" >Download</button>
+    </div>
+
   </div>
+
   <div id="file-upload-filename"></div>
+
+
   <nav class="navbar navbar-expand-lg navbar-light ">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -45,8 +53,6 @@
             <option value="All">All Packages</option>
           </select>
         </li>
-
-
       </ul>
       &nbsp;&nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
     </div>
