@@ -1,6 +1,6 @@
 {
   "name": "GraffixApp",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "An app that shows the projects of students.",
   "main": "main.js",
   "scripts": {
@@ -35,7 +35,7 @@
     "Calstatela",
     "Student Union"
   ],
-  "author": "Chandu",
+  "author": "Chandu & Stewart",
   "license": "CC0-1.0",
   "devDependencies": {
     "electron": "^4.0.6",
