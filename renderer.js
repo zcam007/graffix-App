@@ -204,6 +204,26 @@ getArtists();
 getPackage();
 }
 
+//for admin fullscreen - deprecated as of now Apr 8, 2019
+
+if(document.querySelector('#usersDataTable')!=null)
+{
+  if(document.querySelector('.fullScreenHover')!=null)
+  {
+    document.querySelector('.fullScreenHover').addEventListener('mouseover',function(){
+      //  document.getElementById('fullscreeenPNG').style.visibility="visible";
+      if(document.querySelector('#fullscreeenPNG'))
+        document.querySelector('#fullscreeenPNG').addEventListener('click',function(){
+          window.open('users.html', '_blank', 'nodeIntegration=yes')
+          });
+    });
+    document.querySelector('.fullScreenHover').addEventListener('mouseleave',function(){
+    //  document.getElementById('fullscreeenPNG').style.visibility="hidden";
+    });
+  }
+}
+
+
 function snapshotToArray(snapshot) {
     var returnArr = [];
 
