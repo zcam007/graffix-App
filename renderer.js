@@ -268,21 +268,21 @@ var tableHeaders=[
     "Contact",
     "Package",
     "Project Name",
-    "Blurbs Tshirt",
+    "Blurbs",
     "Event Date",
     "Date Needed",
     "First Draft",
     "To Print",
     "Color Poster",
-    "Theme Requestor Copy",
+    //"Theme Requestor Copy",
     "Postcard",
     "Postcard Size",
     "1'3 Sheet",
-    "UT Ad Dates (1'2)",
+    "UT Ads",
     "Invites",
     "Certificates",
     "Brochures",
-    "Button",
+    "Buttons",
     "Big Banner",
     "Foamboard",
     "Window Decal",
@@ -369,10 +369,14 @@ for(var i=0;i<tableHeaders.length;i++)
      td[j].appendChild(tableData[j]);
 
 
-
+     if(td[j].innerText=='0')
+     {
+       td[j].innerText="";
+     }
     if(td[j].innerText!=''){
       td[j].classList.add(colors[j]);
     }
+
   }
 
 
