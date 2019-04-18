@@ -61,6 +61,12 @@ text-align: center;
 {
   background-color: #67967A;
 }
+.sTH_Width_Increase
+{
+  padding-left: 100px !important;
+  padding-right: 100px !important;
+  white-space: nowrap;
+}
 .sFirstDraft
 {
   background-color: #FFFF04;
