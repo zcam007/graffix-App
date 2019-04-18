@@ -242,8 +242,8 @@ function snapshotToArray(snapshot) {
 const ARTIST=3;
 const PACKAGE=6;
 const CANCEL="CANCEL";
-
-
+const PROJNAME=7;
+const CAMSREQ=30;
 
 
 function datapull(ID)
@@ -345,16 +345,12 @@ for(var i=0;i<tableHeaders.length;i++)
   }else if (i>31){
     th[i].classList.add("headerColor2");
   }
-  // if(){
-  //
-  // }
-  // if(){
-  //
-  // }
-  // if(){
-  //
-  // }
+
 }
+/*Increase width to particular columns*/
+th[PROJNAME].classList.add("sTH_Width_Increase");
+th[CAMSREQ].classList.add("sTH_Width_Increase");
+
   var tr=[];
   for(var i=0;i<jsonArr.length-1;i++ )
   {
