@@ -241,9 +241,9 @@ function snapshotToArray(snapshot) {
 //CONSTANTS
 const ARTIST=3;
 const PACKAGE=6;
-const CANCEL="CANCEL";
+const CANCEL="cancel";
 const PROJNAME=7;
-const CAMSREQ=30;
+const CAMSREQ=31;
 
 
 function datapull(ID)
@@ -274,7 +274,7 @@ var tableHeaders=[
     "First Draft",
     "To Print",
     "Color Poster",
-    //"Theme Requestor Copy",
+    "Theme Requestor Copy",
     "Postcard",
     "Postcard Size",
     "1'3 Sheet",
@@ -321,6 +321,8 @@ colors[30]="sShirt";
 colors[32]="sPlasma";
 colors[33]="sPlasma";
 var th=[];
+
+
 for(var i=0;i<tableHeaders.length;i++)
 {
   th[i]=document.createElement('th');
@@ -365,7 +367,7 @@ th[CAMSREQ].classList.add("sTH_Width_Increase");
      td[j].appendChild(tableData[j]);
 
 
-     if(td[j].innerText=='0')
+     if(td[j].innerText=='0' ||td[j].innerText=="undefined" )
      {
        td[j].innerText="";
      }
@@ -384,9 +386,10 @@ for(var k=0;k<jsonArr.length-1;k++ )
 }
 artistsArr=removeDups(artistsArr).sort();
 var artistColor=[];
-for(var k=1;k<=artistsArr.length;k++)
+console.log(artistsArr)
+for(var k=0;k<artistsArr.length+1;k++)
 {
-  artistColor[k]="artistColor"+k;
+  artistColor[k]="artistColor"+(k+1);
 }
 
 for(var k=0;k<artistsArr.length;k++){
@@ -403,19 +406,19 @@ for(var k=0;k<artistsArr.length;k++){
 }
 
   //ADD BG-COLOR TO CANCEL USING THIS LOGIC
-  if(td[ARTIST].innerText==CANCEL)
+  if(td[ARTIST].innerText.toLowerCase()==CANCEL)
   {
     tr[i].classList.add("sCancel"); // Adding cancel css class
   }
-  if(td[PACKAGE].innerText.includes("WEB"))
+  if(td[PACKAGE].innerText.toLowerCase().includes("web"))
   {
     td[PACKAGE].classList.add("sWeb");
   }
-  else if(td[PACKAGE].innerText.includes("CAM"))
+  else if(td[PACKAGE].innerText.toLowerCase().includes("cam"))
   {
     td[PACKAGE].classList.add("sCamPackage");
   }
-  else if(td[PACKAGE].innerText.includes("SHIRT"))
+  else if(td[PACKAGE].innerText.toLowerCase().includes("shirt"))
   {
     td[PACKAGE].classList.add("sShirtPackage");
   }
