@@ -19,6 +19,11 @@
     <button class="file-submit">SUBMIT</button>
   </div> -->
   <br><br><br><br>
+
+  <select class="form-control btn btn-primary dropdown-toggle col-lg-4 "   id="semesterUploadDropDown">
+    
+  </select>
+
   <div id="filesubmit" class="input-group " >
     <div class="custom-file">
       <input type="file" class="f custom-file-input file-select" id="inputGroupFile02">
@@ -33,6 +38,8 @@
     </div>
 
   </div>
+
+
 
   <div id="file-upload-filename"></div>
 
@@ -53,8 +60,12 @@
             <option value="All">All Packages</option>
           </select>
         </li>
+       
       </ul>
-      &nbsp;&nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
+      <select class="form-control btn btn-primary dropdown-toggle col-1"  id="semesterDropdown">
+              
+        </select>
+      &nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
     </div>
   </nav>
 
@@ -68,9 +79,10 @@
 </div>
 </body>
 <script>
+  require('./landing.js')
   require('./renderer.js')
   require('./sql.js')
 
-  require('./landing.js')
+  
 </script>
 </html>
