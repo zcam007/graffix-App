@@ -33,9 +33,13 @@
             <option value="All">All Packages</option>
           </select>
         </li>
-
+        
 
       </ul>
+      <select class="form-control btn btn-primary dropdown-toggle col-1"  id="semesterDropdown">
+              
+        </select>
+      &nbsp;&nbsp;&nbsp;
       <button class="btn-sm btn-secondary "  id="goBackBtn">Go Back</button>
       &nbsp;&nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
     </div>
@@ -59,8 +63,9 @@
 
       <script>
       // You can also require other files to run in this process
-      require('./renderer.js')
       require('./users.js')
+      require('./renderer.js')
+      
     </script>
   </body>
 </html>

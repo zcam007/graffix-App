@@ -135,8 +135,9 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
 
     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
     console.log('File available at', downloadURL);
-    csvtoJson(downloadURL);
-    var ref = firebase.database().ref('/');
+    var uploadSemester=document.getElementById("semesterUploadDropDown").value;
+    csvtoJson(downloadURL,uploadSemester);
+    var ref = firebase.database().ref('/'+uploadSemester);
     //For last updated timestamp - pushing at last of json obj to firebase.
     var currentdate = new Date();
     var datetime = (currentdate.getMonth()+1) + "/"
@@ -154,11 +155,11 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
   });
 });
 }
-function csvtoJson(downloadURL)
+function csvtoJson(downloadURL,uploadSemester)
 {
   var data='';
-  var ref = firebase.database().ref('/');
-  ref.set('/', null)
+  var ref = firebase.database().ref('/'+uploadSemester);
+  ref.set('/'+uploadSemester, null)
   const request=require('request')
   const csv=require('csvtojson')
   csv()
@@ -185,7 +186,6 @@ getArtists();
 getPackage();
 });
 }
-
 
 //function
 var usersSignInbtn=document.getElementById('usersigninbtn');
@@ -248,9 +248,10 @@ const CAMSREQ=31;
 
 function datapull(ID)
 {
-  firebase.database().ref('/').once('value').then(function(snapshot) {
+  var selectedSemester = document.getElementById("semesterDropdown").value;
+  firebase.database().ref('/'+selectedSemester).once('value').then(function(snapshot) {
     var jsonArr=snapshotToArray(snapshot);
-
+    console.log(jsonArr);
     var lastUpdatedText=document.getElementById('lastUpdated');
     if(lastUpdatedText!=null){
       //jsonArr last key is timestamp
@@ -386,7 +387,7 @@ for(var k=0;k<jsonArr.length-1;k++ )
 }
 artistsArr=removeDups(artistsArr).sort();
 var artistColor=[];
-console.log(artistsArr)
+//console.log(artistsArr)
 for(var k=0;k<artistsArr.length+1;k++)
 {
   artistColor[k]="artistColor"+(k+1);
@@ -545,6 +546,13 @@ if(document.querySelector('#artistDropdown')!=null)
 if(document.querySelector('#packageDropdown')!=null)
 {
     document.querySelector('#packageDropdown').addEventListener('change', function(e){
+    datapull("usersDataTable");
+  });
+}
+
+if(document.querySelector('#semesterDropdown')!=null)
+{
+    document.querySelector('#semesterDropdown').addEventListener('change', function(e){
     datapull("usersDataTable");
   });
 }
