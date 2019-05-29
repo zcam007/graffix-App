@@ -376,11 +376,12 @@ th[CAMSREQ].classList.add("sTH_Width_Increase");
      tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
      td[j].appendChild(tableData[j]);
 
-
+    /* Display blank in the cells if the value is either 0 or not defined(not entered)*/
      if(td[j].innerText=='0' ||td[j].innerText=="undefined" )
      {
        td[j].innerText="";
      }
+     /* Add colors only to non-empty cells*/
     if(td[j].innerText!=''){
       td[j].classList.add(colors[j]);
     }
