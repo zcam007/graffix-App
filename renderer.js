@@ -50,7 +50,7 @@ firebase.auth().onAuthStateChanged(function(user) {
       console.log("Signout Clicked");
       firebase.auth().signOut().then(function() {
         console.log('Signed Out');
-        document.location.href="index.html";
+        document.location.href="newIndex.html";
           }, function(error) {
                 console.error('Sign Out Error', error);
                   });
