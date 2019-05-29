@@ -5,6 +5,9 @@
 </title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link href="style.css" rel="stylesheet">
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="EditableTable/editable.js"></script>
 </head>
 <body>
 
@@ -83,4 +86,10 @@
   require('./renderer.js')
   require('./sql.js')
 </script>
+<script>
+  console.log("editabe");
+  $(document).ready(function (){
+   // $('#usersDataTable').editableTableWidget();
+  });
+  </script>
 </html>
