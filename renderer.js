@@ -182,8 +182,12 @@ if(document.querySelector('#buildHtmlTable')!=null){
 document.querySelector('#buildHtmlTable').addEventListener('click',function () {
 //datapull("buildHtmlTable","All");
 datapull("usersDataTable");
-getArtists();
-getPackage();
+// getArtists();
+// getPackage();
+var selectedSemester = document.getElementById("semesterDropdown").value;
+ 
+getArtists(selectedSemester);
+  getPackage(selectedSemester);
 });
 }
 
@@ -200,8 +204,12 @@ var usersSignInbtn=document.getElementById('usersigninbtn');
 if(document.querySelector('#usersDataTable')!=null){
 
 datapull("usersDataTable");
-getArtists();
-getPackage();
+// getArtists();
+// getPackage();
+var selectedSemester = document.getElementById("semesterDropdown").value;
+ 
+getArtists(selectedSemester);
+  getPackage(selectedSemester);
 }
 
 //for admin fullscreen - deprecated as of now Apr 8, 2019
@@ -233,7 +241,7 @@ function snapshotToArray(snapshot) {
 
         returnArr.push(item);
     });
-
+   // console.log(returnArr);
     return returnArr;
 };
 
@@ -248,6 +256,7 @@ const CAMSREQ=31;
 
 function datapull(ID)
 {
+  
   var selectedSemester = document.getElementById("semesterDropdown").value;
   firebase.database().ref('/'+selectedSemester).once('value').then(function(snapshot) {
     var jsonArr=snapshotToArray(snapshot);
@@ -466,10 +475,10 @@ for(var k=0;k<artistsArr.length;k++){
 }
 
 //Get artists from the data given.
-function getArtists()
+function getArtists(selectedSemester)
 {
   var artistsArr=[];
-  firebase.database().ref('/').once('value').then(function(snapshot) {
+  firebase.database().ref('/'+selectedSemester).once('value').then(function(snapshot) {
   var jsonArr=snapshotToArray(snapshot);
   for(var i=0;i<jsonArr.length-1;i++ )
   {
@@ -481,10 +490,10 @@ function getArtists()
 }
 
 //Get package name from the data
-function getPackage()
+function getPackage(selectedSemester)
 {
   var packageArr=[];
-  firebase.database().ref('/').once('value').then(function(snapshot) {
+  firebase.database().ref('/'+selectedSemester).once('value').then(function(snapshot) {
   var jsonArr=snapshotToArray(snapshot);
   for(var i=0;i<jsonArr.length-1;i++ )
   {
@@ -510,6 +519,11 @@ function artistsLoad(arr) {
   console.log(arr);
   var len=arr.length;
   var x = document.getElementById("artistDropdown");
+  x.innerHTML='';
+  var all = document.createElement("option");
+  all.text="All Artists"
+  all.value="All"
+  x.add(all);
   for(var i=0;i<len;i++){
     if(arr[i]!=""){
     var option = document.createElement("option");
@@ -524,6 +538,14 @@ function packageLoad(artists) {
   //console.log(artists);
   var len=artists.length;
   var x = document.getElementById("packageDropdown");
+  x.innerHTML='';
+  //console.log(x.value);
+
+  var all = document.createElement("option");
+  all.text="All Packages"
+  all.value="All";
+  x.add(all);
+
   for(var i=0;i<len;i++){
     if(artists[i]!=""){
     var option = document.createElement("option");
@@ -550,9 +572,13 @@ if(document.querySelector('#packageDropdown')!=null)
   });
 }
 
+//On semesterDropdown change event pull data respectively
 if(document.querySelector('#semesterDropdown')!=null)
 {
     document.querySelector('#semesterDropdown').addEventListener('change', function(e){
+      var selectedSemester = document.getElementById("semesterDropdown").value;
+  getArtists(selectedSemester);
+  getPackage(selectedSemester);
     datapull("usersDataTable");
   });
 }
