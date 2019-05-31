@@ -305,6 +305,7 @@ function datapull(ID)
       lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
     }
   var myObj=snapshot.val();
+  console.log(jsonArr)
   var table=document.getElementById(ID);
   table.innerHTML='';
 var tableHeaders=[
