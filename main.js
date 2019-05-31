@@ -84,5 +84,10 @@ autoUpdater.on('update-downloaded', (info) => {
 ipcMain.on("quitAndInstall", (event, arg) => {
     autoUpdater.quitAndInstall();
 })
+
+require('update-electron-app')({
+  updateInterval: '5 minutes',
+  logger: require('electron-log')
+})
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
