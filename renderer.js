@@ -178,18 +178,58 @@ function csvtoJson(downloadURL,uploadSemester)
 }
 
 
-if(document.querySelector('#buildHtmlTable')!=null){
-document.querySelector('#buildHtmlTable').addEventListener('click',function () {
-//datapull("buildHtmlTable","All");
-datapull("usersDataTable");
-// getArtists();
-// getPackage();
-var selectedSemester = document.getElementById("semesterDropdown").value;
- 
-getArtists(selectedSemester);
-  getPackage(selectedSemester);
-});
+if(document.querySelector('#semesterDropdown')!=null)
+{
+    var x = document.getElementById("semesterDropdown");
+    // var semesters=["Fall","Spring","Summer"];
+   // var semestersArr=[];
+    firebase.database().ref('/').once('value').then(function(snapshot) {
+    var jsonArr=snapshotToArray(snapshot);
+    /*for(var i=0;i<jsonArr.length;i++)
+    {
+    semestersArr[i]=jsonArr[i]["key"];
+    }
+      for(var i=0;i<semestersArr.length;i++)
+    {
+        var option = document.createElement("option");
+        option.text = semestersArr[i];
+        option.value=semestersArr[i];
+        x.add(option);
+    }*/
+
+    for(var i=0;i<jsonArr.length;i++)
+    {
+        var option = document.createElement("option");
+        option.text = jsonArr[i]["key"];
+        option.value=jsonArr[i]["key"];
+        x.add(option);
+    }
+    
+    dataLoadInit();
+  });
+     
 }
+
+const dataLoadInit=()=>{
+  var selectedSemester = document.getElementById("semesterDropdown").value; 
+  datapull("usersDataTable");
+  getArtists(selectedSemester);
+  getPackage(selectedSemester);
+}
+
+
+// // if(document.querySelector('#buildHtmlTable')!=null){
+// // document.querySelector('#buildHtmlTable').addEventListener('click',function () {
+// //datapull("buildHtmlTable","All");
+// // datapull("usersDataTable");
+// // // getArtists();
+// // // getPackage();
+// // var selectedSemester = document.getElementById("semesterDropdown").value;
+ 
+// // getArtists(selectedSemester);
+// //   getPackage(selectedSemester);
+// // });
+// // }
 
 //function
 var usersSignInbtn=document.getElementById('usersigninbtn');
@@ -201,16 +241,14 @@ var usersSignInbtn=document.getElementById('usersigninbtn');
   }
 
 
-if(document.querySelector('#usersDataTable')!=null){
+// // if(document.querySelector('#usersDataTable')!=null){
+// // datapull("usersDataTable");
+// // var selectedSemester = document.getElementById("semesterDropdown").value; 
+// // getArtists(selectedSemester);
+// //   getPackage(selectedSemester);
+// // }
 
-datapull("usersDataTable");
-// getArtists();
-// getPackage();
-var selectedSemester = document.getElementById("semesterDropdown").value;
- 
-getArtists(selectedSemester);
-  getPackage(selectedSemester);
-}
+
 
 //for admin fullscreen - deprecated as of now Apr 8, 2019
 
@@ -573,13 +611,20 @@ if(document.querySelector('#packageDropdown')!=null)
   });
 }
 
-//On semesterDropdown change event pull data respectively
+//On semesterDropdown change event call dataLoadInit()
 if(document.querySelector('#semesterDropdown')!=null)
 {
     document.querySelector('#semesterDropdown').addEventListener('change', function(e){
-      var selectedSemester = document.getElementById("semesterDropdown").value;
-  getArtists(selectedSemester);
-  getPackage(selectedSemester);
-    datapull("usersDataTable");
+  // var selectedSemester = document.getElementById("semesterDropdown").value;
+  // getArtists(selectedSemester);
+  // getPackage(selectedSemester);
+  // datapull("usersDataTable");
+  dataLoadInit();
   });
 }
+
+
+
+
+
+
