@@ -291,6 +291,35 @@ const CANCEL="cancel";
 const PROJNAME=7;
 const CAMSREQ=31;
 
+//Filter Function
+
+const filter=(arr)=>{
+console.log(arr);
+let filterArr=[];
+let top=0;
+for(var i=0;i<arr.length;i++)
+{
+  if(arr[i]["Color Poster"]!="" && arr[i]["Color Poster"]!="0" && arr[i]["Color Poster"]!=undefined){
+  console.log(arr[i]["Color Poster"]);
+  filterArr[top++]=i;
+  }
+}
+//var newArr=arr;
+const newArr = [...arr];
+for(var j=0;j<filterArr.length;j++)
+{
+  newArr.splice(filterArr[j],1);
+  newArr.unshift(arr[filterArr[j]]);
+}
+
+console.log(filterArr);
+console.log(newArr);
+return newArr;
+}
+
+
+
+
 
 function datapull(ID)
 {
@@ -299,13 +328,16 @@ function datapull(ID)
   firebase.database().ref('/'+selectedSemester).once('value').then(function(snapshot) {
     var jsonArr=snapshotToArray(snapshot);
     console.log(jsonArr);
+    
     var lastUpdatedText=document.getElementById('lastUpdated');
     if(lastUpdatedText!=null){
       //jsonArr last key is timestamp
       lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
     }
   var myObj=snapshot.val();
-  console.log(jsonArr)
+  //console.log(jsonArr)
+  // jsonArr=filter(jsonArr);
+  filter(jsonArr);
   var table=document.getElementById(ID);
   table.innerHTML='';
 var tableHeaders=[
