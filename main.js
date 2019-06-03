@@ -50,6 +50,10 @@ function createWindow () {
 
   });
   require('./menu/mainmenu')
+  require('update-electron-app')({
+    updateInterval: '5 minutes',
+    logger: require('electron-log')
+  })
    autoUpdater.checkForUpdates();
 }
 
@@ -78,16 +82,16 @@ app.on('activate', function () {
 })
 autoUpdater.on('update-downloaded', (info) => {
   console.log("Update downloaded");
-    win.webContents.send('updateReady')
+  //autoUpdater.quitAndInstall();
+  app.removeAllListeners("window-all-closed")
+    autoUpdater.quitAndInstall(false)
+   // win.webContents.send('updateReady')
 });
 
 ipcMain.on("quitAndInstall", (event, arg) => {
-    autoUpdater.quitAndInstall();
+   // autoUpdater.quitAndInstall();
 })
 
-require('update-electron-app')({
-  updateInterval: '5 minutes',
-  logger: require('electron-log')
-})
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
