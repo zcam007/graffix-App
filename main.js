@@ -47,8 +47,7 @@ function createWindow () {
     // Now that we have them, save them using the `set` method.
     store.set('windowBounds', { width, height });
     console.log(size);
-
-  });
+});
   require('./menu/mainmenu')
   require('update-electron-app')({
     updateInterval: '5 minutes',

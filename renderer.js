@@ -284,6 +284,7 @@ function snapshotToArray(snapshot) {
 };
 
 
+
 //CONSTANTS
 const ARTIST=3;
 const PACKAGE=6;
@@ -291,44 +292,63 @@ const CANCEL="cancel";
 const PROJNAME=7;
 const CAMSREQ=31;
 
-//Filter Function
 
-const filter=(arr)=>{
-console.log(arr);
-let filterArr=[];
-let top=0;
+
+//!Filter Function
+ const filter=(arr,filterHeader)=>{
+//let filterArr=[];
+//let top=0;
+const filterMap = new Map();
 for(var i=0;i<arr.length;i++)
 {
-  if(arr[i]["Color Poster"]!="" && arr[i]["Color Poster"]!="0" && arr[i]["Color Poster"]!=undefined){
-  console.log(arr[i]["Color Poster"]);
-  filterArr[top++]=i;
+  if(arr[i][filterHeader]!="" && arr[i][filterHeader]!="0" && arr[i][filterHeader]!=undefined){
+  //filterMap.set(i,parseInt(arr[i][filterHeader],10));
+  filterMap.set(i,arr[i][filterHeader]);
+}
+}
+//console.log(filterArr.length+ "filterarraylength")
+const mapSort1 = new Map([...filterMap.entries()].sort((a, b) => b[1] - a[1]));
+//console.log(mapSort1);
+var keys =[ ...mapSort1.keys() ];
+let newArr = [...arr];
+//console.log(newArr)
+for(var i=0;i<arr.length;i++)
+{
+  if(arr[i][filterHeader]!="" && arr[i][filterHeader]!="0" && arr[i][filterHeader]!=undefined)
+  {
+  delete newArr[i];
+ // console.log("yes")
   }
 }
-//var newArr=arr;
-const newArr = [...arr];
-for(var j=0;j<filterArr.length;j++)
+for(var i=0;i<arr.length;i++)
 {
-  newArr.splice(filterArr[j],1);
-  newArr.unshift(arr[filterArr[j]]);
+  newArr.unshift(arr[keys[i]]);
+}
+var filtered = newArr.filter(function (el) {
+  return el != null;
+});
+
+// console.log(newArr);
+return filtered;
+
 }
 
-console.log(filterArr);
-console.log(newArr);
-return newArr;
+
+
+function headersclick()
+{
+  //var k=do
+  console.log("clicked"+this.innerHTML);
+  const getFilterHeader=this.innerHTML;
+  datapull("usersDataTable",getFilterHeader);
 }
 
-
-
-
-
-function datapull(ID)
+function datapull(ID,filterHeader='none')
 {
   
   var selectedSemester = document.getElementById("semesterDropdown").value;
   firebase.database().ref('/'+selectedSemester).once('value').then(function(snapshot) {
-    var jsonArr=snapshotToArray(snapshot);
-    console.log(jsonArr);
-    
+    var jsonArr=snapshotToArray(snapshot); 
     var lastUpdatedText=document.getElementById('lastUpdated');
     if(lastUpdatedText!=null){
       //jsonArr last key is timestamp
@@ -336,8 +356,8 @@ function datapull(ID)
     }
   var myObj=snapshot.val();
   //console.log(jsonArr)
-  // jsonArr=filter(jsonArr);
-  filter(jsonArr);
+   jsonArr=filter(jsonArr,filterHeader);
+  //filter(jsonArr);
   var table=document.getElementById(ID);
   table.innerHTML='';
 var tableHeaders=[
@@ -408,6 +428,8 @@ for(var i=0;i<tableHeaders.length;i++)
 {
   th[i]=document.createElement('th');
   var heading=document.createTextNode(tableHeaders[i]);
+  th[i].id="heading-"+tableHeaders[i];
+  th[i].onclick=headersclick;
   th[i].appendChild(heading);
   table.appendChild(th[i]);
 
