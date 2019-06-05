@@ -28,7 +28,7 @@ var signInbtn=document.getElementById('signinbtn');
     firebase.auth().signInWithEmailAndPassword(emailField,passwordField).then(function()
     {
       //  alert("Signed In");
-       document.location.href="landing.html";
+       document.location.href="admin.html";
 }).catch(function(error)
 {
     alert("Wrong username/password");
@@ -139,13 +139,14 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
     csvtoJson(downloadURL,uploadSemester);
     var ref = firebase.database().ref('/'+uploadSemester);
     //For last updated timestamp - pushing at last of json obj to firebase.
-    var currentdate = new Date();
-    var datetime = (currentdate.getMonth()+1) + "/"
-                + currentdate.getDate()  + "/"
-                + currentdate.getFullYear() + " @ "
-                + currentdate.getHours() + ":"
-                + currentdate.getMinutes() + ":"
-                + currentdate.getSeconds();
+    // var currentdate = new Date();
+    // var datetime = (currentdate.getMonth()+1) + "/"
+    //             + currentdate.getDate()  + "/"
+    //             + currentdate.getFullYear() + " @ "
+    //             + currentdate.getHours() + ":"
+    //             + currentdate.getMinutes() + ":"
+    //             + currentdate.getSeconds();
+    var datetime=getTimeStamp();
     ref.set({'timestamp':datetime});
 //location.reload();
   });
@@ -302,12 +303,22 @@ const filterMap = new Map();
 for(var i=0;i<arr.length;i++)
 {
   if(arr[i][filterHeader]!="" && arr[i][filterHeader]!="0" && arr[i][filterHeader]!=undefined){
-  //filterMap.set(i,parseInt(arr[i][filterHeader],10));
-  filterMap.set(i,arr[i][filterHeader]);
+  //   let parsInt=arr[i][filterHeader];
+  //   if(filterHeader.toLowerCase().includes("date"))
+  //   {
+  //     parsInt = arr[i][filterHeader].replace("/", "");
+  //   }
+  //   filterMap.set(i,parseInt(parsInt,10));
+  // console.log(parsInt)
+  filterMap.set(i,parseInt(arr[i][filterHeader]));
+
+  //filterMap.set(i,arr[i][filterHeader]);
 }
 }
 //console.log(filterArr.length+ "filterarraylength")
+
 const mapSort1 = new Map([...filterMap.entries()].sort((a, b) => b[1] - a[1]));
+
 //console.log(mapSort1);
 var keys =[ ...mapSort1.keys() ];
 let newArr = [...arr];
@@ -343,10 +354,12 @@ function headersclick()
   datapull("usersDataTable",getFilterHeader);
 }
 
+
 function datapull(ID,filterHeader='none')
 {
-  
-  var selectedSemester = document.getElementById("semesterDropdown").value;
+  console.log("Datapull logged")
+  //var selectedSemester = document.getElementById("semesterDropdown").value;
+  var selectedSemester=getSelectedSemester();
   firebase.database().ref('/'+selectedSemester).once('value').then(function(snapshot) {
     var jsonArr=snapshotToArray(snapshot); 
     var lastUpdatedText=document.getElementById('lastUpdated');
@@ -355,7 +368,7 @@ function datapull(ID,filterHeader='none')
       lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
     }
   var myObj=snapshot.val();
-  //console.log(jsonArr)
+  console.log(jsonArr)
    jsonArr=filter(jsonArr,filterHeader);
   //filter(jsonArr);
   var table=document.getElementById(ID);
@@ -423,7 +436,7 @@ colors[32]="sPlasma";
 colors[33]="sPlasma";
 var th=[];
 
-
+var thtr=document.createElement('tr');;
 for(var i=0;i<tableHeaders.length;i++)
 {
   th[i]=document.createElement('th');
@@ -431,7 +444,9 @@ for(var i=0;i<tableHeaders.length;i++)
   th[i].id="heading-"+tableHeaders[i];
   th[i].onclick=headersclick;
   th[i].appendChild(heading);
-  table.appendChild(th[i]);
+  //thtr = 
+  thtr.appendChild(th[i]);
+  //table.appendChild(th[i]);
 
   if(i<4){
     th[i].classList.add("headerColor1");
@@ -452,6 +467,7 @@ for(var i=0;i<tableHeaders.length;i++)
   }
 
 }
+table.appendChild(thtr);
 /*Increase width to particular columns*/
 th[PROJNAME].classList.add("sTH_Width_Increase");
 th[CAMSREQ].classList.add("sTH_Width_Increase");
@@ -465,8 +481,14 @@ th[CAMSREQ].classList.add("sTH_Width_Increase");
   for(var j=0;j<tableHeaders.length;j++)
   {
      td[j]=document.createElement('td');
+    
+    //Only admins can edit the table 
+     if(getCurrentPageName()=="admin.html")
+     {
+     td[j].setAttribute('contenteditable', 'true');
+     }
      tr[i].appendChild(td[j]);
-     tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
+     tableData[j]=document.createTextNode( unCamelCase (jsonArr[i][tableHeaders[j]]))
      td[j].appendChild(tableData[j]);
 
     /* Display blank in the cells if the value is either 0 or not defined(not entered)*/
@@ -567,6 +589,25 @@ for(var k=0;k<artistsArr.length;k++){
 
 
 }
+//* unCamelcase generic function
+function unCamelCase (str){
+  if(str==undefined || str=="")
+  {
+    return
+  }
+  return str
+      // insert a space between lower & upper
+      .replace(/([a-z])([A-Z])/g, '$1 $2')
+      // space before last upper in a sequence followed by lower
+      .replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3')
+      // uppercase the first character
+      .replace(/^./, function(str){ return str.toUpperCase(); })
+}
+
+
+
+//!  Get Functions
+
 
 //Get artists from the data given.
 function getArtists(selectedSemester)
@@ -597,6 +638,37 @@ function getPackage(selectedSemester)
   //console.log(removeDups(packageArr));
 });
 }
+
+const getSelectedSemester=()=>
+{
+  if(document.querySelector('#semesterDropdown')!=null)
+  {
+    return document.getElementById("semesterDropdown").value;
+  }
+  
+}
+
+const getTimeStamp=()=>{
+  var currentdate = new Date();
+  var datetime = (currentdate.getMonth()+1) + "/"
+              + currentdate.getDate()  + "/"
+              + currentdate.getFullYear() + " @ "
+              + currentdate.getHours() + ":"
+              + currentdate.getMinutes() + ":"
+              + currentdate.getSeconds();
+
+              return datetime;
+}
+
+
+const getCurrentPageName=()=>{
+  var path = window.location.pathname;
+var page = path.split("/").pop();
+return page;
+//console.log( page );
+}
+
+
 //remove duplicated generic function
 function removeDups(names) {
   let unique = {};
@@ -650,6 +722,47 @@ function packageLoad(artists) {
   }
 }
 
+//TableData to Json conversion function
+const tableToJson=()=> {
+  var data = [];
+  var table=document.getElementById("usersDataTable");
+  // first row needs to be headers
+  var headers = [];
+  for (var i=0; i<table.rows[0].cells.length; i++) {
+      headers[i] = table.rows[0].cells[i].innerHTML;//.replace(/ /gi,'');
+  }
+//console.log(table.header);
+  // go through cells
+  var ref = firebase.database().ref('/'+getSelectedSemester());
+  ref.set('/'+getSelectedSemester(), null)
+  var datetime=getTimeStamp();
+  ref.set({'timestamp':datetime});
+
+  for (var i=1; i<table.rows.length; i++) {
+
+      var tableRow = table.rows[i];
+      var rowData = {};
+
+      for (var j=0; j<tableRow.cells.length; j++) {
+
+          rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
+
+      }
+      ref.push(rowData);
+      data.push(rowData);
+  } 
+  
+  dataLoadInit();
+  console.log(getSelectedSemester());
+  console.log(datetime)
+console.log(data);
+
+}
+
+
+//! Add EventListeners Here
+
+
 //On artistDropdown change event pull data respectively
 if(document.querySelector('#artistDropdown')!=null)
 {
@@ -677,6 +790,15 @@ if(document.querySelector('#semesterDropdown')!=null)
   dataLoadInit();
   });
 }
+
+
+if(document.querySelector("#export-btn")!=null)
+{
+  document.querySelector('#export-btn').addEventListener('click',tableToJson);
+}
+
+
+
 
 
 
