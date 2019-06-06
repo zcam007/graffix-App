@@ -368,7 +368,7 @@ function datapull(ID,filterHeader='none')
       lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
     }
   var myObj=snapshot.val();
-  console.log(jsonArr)
+  //console.log(jsonArr)
    jsonArr=filter(jsonArr,filterHeader);
   //filter(jsonArr);
   var table=document.getElementById(ID);
@@ -436,7 +436,9 @@ colors[32]="sPlasma";
 colors[33]="sPlasma";
 var th=[];
 
-var thtr=document.createElement('tr');;
+var artist = document.getElementById("artistDropdown").value.toLowerCase();
+var package = document.getElementById("packageDropdown").value.toLowerCase();
+var thtr=document.createElement('tr');
 for(var i=0;i<tableHeaders.length;i++)
 {
   th[i]=document.createElement('th');
@@ -485,7 +487,9 @@ th[CAMSREQ].classList.add("sTH_Width_Increase");
     //Only admins can edit the table 
      if(getCurrentPageName()=="admin.html")
      {
-     td[j].setAttribute('contenteditable', 'true');
+       //console.log(j);
+      if(artist=="all" && package=="all")
+      td[j].setAttribute('contenteditable', 'true');
      }
      tr[i].appendChild(td[j]);
      tableData[j]=document.createTextNode( unCamelCase (jsonArr[i][tableHeaders[j]]))
@@ -555,30 +559,35 @@ for(var k=0;k<artistsArr.length;k++){
     {
       continue;
     }
-    var artist = document.getElementById("artistDropdown").value;
-    var package = document.getElementById("packageDropdown").value;
-    if(artist=="All" && package=="All")
+    
+    //$('#usersDataTable').attr('disabled');
+    //$("#usersDataTable tr td").attr("contenteditable", "false");
+    if(artist=="all" && package=="all")
     {
+    //  $("#usersDataTable").find("td").attr("contenteditable", "true");
+   // $("#usersDataTable tr td").attr("contenteditable", "true");
+
       table.appendChild(tr[i]);
     }
-    else if(artist=="All" && package!="All" )
+    else if(artist=="all" && package!="all" )
     {
-      if(package==td[PACKAGE].innerText)
+    
+      if(package==td[PACKAGE].innerText.toLowerCase())
       {
         table.appendChild(tr[i]);
       }
     }
-    else if(artist!="All" && package=="All")
+    else if(artist!="all" && package=="all")
     {
-      if(artist==td[ARTIST].innerText)
+      if(artist==td[ARTIST].innerText.toLowerCase())
       {
           table.appendChild(tr[i]);
       }
     }
     else {
-      if(package==td[PACKAGE].innerText)
+      if(package==td[PACKAGE].innerText.toLowerCase())
       {
-        if(artist==td[ARTIST].innerText)
+        if(artist==td[ARTIST].innerText.toLowerCase())
         {
           table.appendChild(tr[i]);
         }
@@ -586,9 +595,8 @@ for(var k=0;k<artistsArr.length;k++){
     }
 }
 });
-
-
 }
+
 //* unCamelcase generic function
 function unCamelCase (str){
   if(str==undefined || str=="")
@@ -619,6 +627,7 @@ function getArtists(selectedSemester)
   {
     artistsArr[i]=jsonArr[i]['Artist'];
   }
+  
   artistsLoad(removeDups(artistsArr).sort());
   return artistsArr;
 });
@@ -681,8 +690,15 @@ function removeDups(names) {
 }
 
 //ArtistsLoad Function Start
-function artistsLoad(arr) {
-  console.log(arr);
+function artistsLoad(arr1) {
+  console.log(arr1);
+  var arr = [];
+  //This code is for removing duplicate artist names after editing
+for (var i = 0; i < arr1.length; i++) {
+  if(arr1[i]!="cancel")
+    arr.push(arr1[i].toLowerCase());
+}
+arr=removeDups(arr);
   var len=arr.length;
   var x = document.getElementById("artistDropdown");
   x.innerHTML='';
@@ -693,16 +709,18 @@ function artistsLoad(arr) {
   for(var i=0;i<len;i++){
     if(arr[i]!=""){
     var option = document.createElement("option");
-    option.text = arr[i];
-    option.value=arr[i];
+    
+    option.text = arr[i].charAt(0).toUpperCase()+ arr[i].slice(1);
+    option.value=arr[i].charAt(0).toUpperCase()+ arr[i].slice(1);
+    
     x.add(option);
     }
   }
 }
 //PackageLoad function start
-function packageLoad(artists) {
+function packageLoad(packages) {
   //console.log(artists);
-  var len=artists.length;
+  var len=packages.length;
   var x = document.getElementById("packageDropdown");
   x.innerHTML='';
   //console.log(x.value);
@@ -713,10 +731,10 @@ function packageLoad(artists) {
   x.add(all);
 
   for(var i=0;i<len;i++){
-    if(artists[i]!=""){
+    if(packages[i]!=""){
     var option = document.createElement("option");
-    option.text = artists[i];
-    option.value=artists[i];
+    option.text = packages[i];
+    option.value=packages[i];
     x.add(option);
     }
   }
@@ -724,37 +742,74 @@ function packageLoad(artists) {
 
 //TableData to Json conversion function
 const tableToJson=()=> {
-  var data = [];
-  var table=document.getElementById("usersDataTable");
-  // first row needs to be headers
-  var headers = [];
-  for (var i=0; i<table.rows[0].cells.length; i++) {
-      headers[i] = table.rows[0].cells[i].innerHTML;//.replace(/ /gi,'');
-  }
+  // var data = [];
+  // var table=document.getElementById("usersDataTable");
+  // // first row needs to be headers
+  // var headers = [];
+  // for (var i=0; i<table.rows[0].cells.length; i++) {
+  //     headers[i] = table.rows[0].cells[i].innerHTML;//.replace(/ /gi,'');
+  // }
 //console.log(table.header);
   // go through cells
-  var ref = firebase.database().ref('/'+getSelectedSemester());
+  // var ref = firebase.database().ref('/'+getSelectedSemester());
+  // ref.set('/'+getSelectedSemester(), null)
+  // var datetime=getTimeStamp();
+  // ref.set({'timestamp':datetime});
+
+  // for (var i=1; i<table.rows.length; i++) {
+
+  //     var tableRow = table.rows[i];
+  //     var rowData = {};
+
+  //     for (var j=0; j<tableRow.cells.length; j++) {
+
+  //         rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
+
+  //     }
+  //     ref.push(rowData);
+  //     data.push(rowData);
+  // }
+  
+  var $TABLE = $('#usersDataTable');
+var $BTN = $('#export-btn');
+var $EXPORT = $('#export');
+
+// A few jQuery helpers for exporting only
+jQuery.fn.pop = [].pop;
+jQuery.fn.shift = [].shift;
+  //console.log("yeaahh")
+  var $rows = $TABLE.find('tr:not(:hidden)');
+  var headers = [];
+  var data = [];
+   var ref = firebase.database().ref('/'+getSelectedSemester());
   ref.set('/'+getSelectedSemester(), null)
   var datetime=getTimeStamp();
   ref.set({'timestamp':datetime});
+  // Get the headers (add special header logic here)
+  $($rows.shift()).find('th:not(:empty)').each(function () {
+    headers.push($(this).text());
+  });
+  
+  // Turn all existing rows into a loopable array
+  $rows.each(function () {
+    var $td = $(this).find('td');
+    var h = {};
+    
+    // Use the headers from earlier to name our hash keys
+    headers.forEach(function (header, i) {
+      h[header] = $td.eq(i).text();   
+    });
+    ref.push(h);
+    data.push(h);
+  });
+  
 
-  for (var i=1; i<table.rows.length; i++) {
 
-      var tableRow = table.rows[i];
-      var rowData = {};
 
-      for (var j=0; j<tableRow.cells.length; j++) {
-
-          rowData[ headers[j] ] = tableRow.cells[j].innerHTML;
-
-      }
-      ref.push(rowData);
-      data.push(rowData);
-  } 
   
   dataLoadInit();
   console.log(getSelectedSemester());
-  console.log(datetime)
+  //console.log(datetime)
 console.log(data);
 
 }
