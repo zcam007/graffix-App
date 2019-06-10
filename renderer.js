@@ -316,7 +316,7 @@ for(var i=0;i<arr.length;i++)
 }
 }
 //console.log(filterArr.length+ "filterarraylength")
-
+console.log(filterMap);
 const mapSort1 = new Map([...filterMap.entries()].sort((a, b) => b[1] - a[1]));
 
 //console.log(mapSort1);
@@ -370,7 +370,7 @@ function datapull(ID,filterHeader='none')
   var myObj=snapshot.val();
   //console.log(jsonArr)
    jsonArr=filter(jsonArr,filterHeader);
-  //filter(jsonArr);
+  //filter(jsonArr,filterHeader);
   var table=document.getElementById(ID);
   table.innerHTML='';
 var tableHeaders=[
