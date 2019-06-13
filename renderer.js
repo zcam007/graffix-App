@@ -14,7 +14,7 @@ var firebase=require('./firebase/firebase.js');
 var creds=require("./credentials.js")
 require('./jquery.min.js')
 firebase.initializeApp(creds.calstalelausufirebase);
-
+var Chart = require('chart.js');
 
 
 var signInbtn=document.getElementById('signinbtn');
@@ -370,6 +370,7 @@ function datapull(ID,filterHeader='none')
   var myObj=snapshot.val();
   //console.log(jsonArr)
    jsonArr=filter(jsonArr,filterHeader);
+   loadCompletedChart(jsonArr);
   //filter(jsonArr,filterHeader);
   var table=document.getElementById(ID);
   table.innerHTML='';
@@ -857,6 +858,57 @@ if(document.querySelector("#export-btn")!=null)
 
 
 
+const loadCompletedChart=(jsonArr)=>{
 
+if(document.querySelector("#completedChartdiv")!=null)
+{
+//console.log(jsonArr);
+var iCompleted=0;
+var iNotCompleted=0;
+for(var i=0;i<jsonArr.length-1;i++)
+{
+      console.log(jsonArr[i]["Completed"]);
+      if(jsonArr[i]["Completed"]!="")
+      {
+        iCompleted++
+      }
+      else
+      {
+        iNotCompleted++;
+      }
+}
+am4core.useTheme(am4themes_animated);
 
+var chart = am4core.create("completedChartdiv", am4charts.PieChart);
+chart.hiddenState.properties.opacity = 0; // this creates initial fade-in
 
+chart.data = [
+  {
+    index: "Completed",
+    value: iCompleted
+  },
+  {
+    index: "Not Completed",
+    value: iNotCompleted
+  }
+];
+chart.radius = am4core.percent(70);
+chart.innerRadius = am4core.percent(40);
+chart.startAngle = 180;
+chart.endAngle = 360;  
+
+var series = chart.series.push(new am4charts.PieSeries());
+series.dataFields.value = "value";
+series.dataFields.category = "index";
+
+series.slices.template.cornerRadius = 10;
+series.slices.template.innerCornerRadius = 7;
+series.slices.template.draggable = true;
+series.slices.template.inert = true;
+
+series.hiddenState.properties.startAngle = 90;
+series.hiddenState.properties.endAngle = 90;
+
+chart.legend = new am4charts.Legend();
+}
+}
