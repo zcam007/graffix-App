@@ -256,3 +256,11 @@ background-color: #f91fbb;
   position: relative;
   top:20px;
 }
+
+
+#completedChartdiv {
+  position: relative;
+  width: 100%;
+  height: 18vh;
+  top:5%;
+}
