@@ -489,11 +489,18 @@ th[CAMSREQ].classList.add("sTH_Width_Increase");
      if(getCurrentPageName()=="admin.html")
      {
        //console.log(j);
-      if(artist=="all" && package=="all")
+      if(artist=="all" && package=="all"){
       td[j].setAttribute('contenteditable', 'true');
+      document.getElementById('export-btn').style.visibility="visible";
+      }
+      else
+      {
+        
+      document.getElementById('export-btn').style.visibility="hidden";
+      }
      }
      tr[i].appendChild(td[j]);
-     tableData[j]=document.createTextNode( unCamelCase (jsonArr[i][tableHeaders[j]]))
+     tableData[j]=document.createTextNode(jsonArr[i][tableHeaders[j]])
      td[j].appendChild(tableData[j]);
 
     /* Display blank in the cells if the value is either 0 or not defined(not entered)*/
@@ -867,7 +874,6 @@ var iCompleted=0;
 var iNotCompleted=0;
 for(var i=0;i<jsonArr.length-1;i++)
 {
-      console.log(jsonArr[i]["Completed"]);
       if(jsonArr[i]["Completed"]!="")
       {
         iCompleted++
