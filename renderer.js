@@ -809,13 +809,21 @@ jQuery.fn.shift = [].shift;
     });
     ref.push(h);
     data.push(h);
+    
   });
   
-
-
-
-  
   dataLoadInit();
+  
+  var json2xls = require('json2xls');
+      var xls = json2xls(data);
+      var fs = require("fs");
+  console.log(__dirname);
+  var path = require('path');
+  var DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'downloads/');
+  console.log(DOWNLOAD_DIR);
+  fs.writeFileSync(DOWNLOAD_DIR+getSelectedSemester()+'.xlsx', xls, 'binary');
+
+  alert("Saved Sucessfully and downloaded to Downloads folder ");
   console.log(getSelectedSemester());
   //console.log(datetime)
 console.log(data);
