@@ -16,6 +16,21 @@ if(document.querySelector('#semesterUploadDropDown')!=null)
     }
 }
 
+if(document.querySelector('#semesterUploadDropDownYear')!=null)
+{
+    var x = document.getElementById("semesterUploadDropDownYear");
+    let currentYear=new Date().getFullYear();
+    for(var i=(currentYear+1);i>=2015;i--)
+    {
+        var option = document.createElement("option");
+        option.text = i;
+        option.value=i;
+        x.add(option);
+    }
+}
+
+
+
 // if(document.querySelector('#semesterDropdown')!=null)
 // {
 //     var x = document.getElementById("semesterDropdown");
