@@ -492,11 +492,13 @@ th[CAMSREQ].classList.add("sTH_Width_Increase");
       if(artist=="all" && package=="all"){
       td[j].setAttribute('contenteditable', 'true');
       document.getElementById('export-btn').style.visibility="visible";
+      document.getElementById('downloadbtn').disabled=false;
       }
       else
       {
         
       document.getElementById('export-btn').style.visibility="hidden";
+      document.getElementById('downloadbtn').disabled=true;
       }
      }
      tr[i].appendChild(td[j]);
@@ -814,6 +816,62 @@ jQuery.fn.shift = [].shift;
   
   dataLoadInit();
   
+  // var json2xls = require('json2xls');
+  //     var xls = json2xls(data);
+  //     var fs = require("fs");
+  // console.log(__dirname);
+  // var path = require('path');
+  // var DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'downloads/');
+  // console.log(DOWNLOAD_DIR);
+  // fs.writeFileSync(DOWNLOAD_DIR+getSelectedSemester()+'.xlsx', xls, 'binary');
+
+  // alert("Saved Sucessfully and downloaded to Downloads folder ");
+  console.log(getSelectedSemester());
+  //console.log(datetime)
+console.log(data);
+
+}
+
+
+const tableToJsonDownload=()=> {
+ 
+  
+  var $TABLE = $('#usersDataTable');
+var $BTN = $('#export-btn');
+var $EXPORT = $('#export');
+
+// A few jQuery helpers for exporting only
+jQuery.fn.pop = [].pop;
+jQuery.fn.shift = [].shift;
+  //console.log("yeaahh")
+  var $rows = $TABLE.find('tr:not(:hidden)');
+  var headers = [];
+  var data = [];
+   var ref = firebase.database().ref('/'+getSelectedSemester());
+  ref.set('/'+getSelectedSemester(), null)
+  var datetime=getTimeStamp();
+  ref.set({'timestamp':datetime});
+  // Get the headers (add special header logic here)
+  $($rows.shift()).find('th:not(:empty)').each(function () {
+    headers.push($(this).text());
+  });
+  
+  // Turn all existing rows into a loopable array
+  $rows.each(function () {
+    var $td = $(this).find('td');
+    var h = {};
+    
+    // Use the headers from earlier to name our hash keys
+    headers.forEach(function (header, i) {
+      h[header] = $td.eq(i).text();   
+    });
+    ref.push(h);
+    data.push(h);
+    
+  });
+  
+  dataLoadInit();
+  
   var json2xls = require('json2xls');
       var xls = json2xls(data);
       var fs = require("fs");
@@ -829,6 +887,8 @@ jQuery.fn.shift = [].shift;
 console.log(data);
 
 }
+
+
 
 
 //! Add EventListeners Here
@@ -869,6 +929,10 @@ if(document.querySelector("#export-btn")!=null)
 }
 
 
+if(document.querySelector("#downloadbtn")!=null)
+{
+  document.querySelector('#downloadbtn').addEventListener('click',tableToJsonDownload);
+}
 
 
 
