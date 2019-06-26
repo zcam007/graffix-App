@@ -35,7 +35,11 @@
   </div> -->
   <br><br><br><br>
 
-  <select class="form-control btn btn-primary dropdown-toggle col-lg-4 "   id="semesterUploadDropDown">
+  <select class="form-control btn btn-primary dropdown-toggle col-lg-2 "   id="semesterUploadDropDown">
+    
+  </select>
+
+  <select class="form-control btn btn-primary dropdown-toggle col-lg-2 "   id="semesterUploadDropDownYear">
     
   </select>
 
@@ -87,13 +91,13 @@
           </select>
         </li>
         <li class="nav-item">
-          <select class="form-control btn btn-primary dropdown-toggle"   id="packageDropdown">
+          <select class="form-control btn btn-primary dropdown-toggle "   id="packageDropdown">
             <option value="All">All Packages</option>
           </select>
         </li>
        
       </ul>
-      <select class="form-control btn btn-primary dropdown-toggle col-1"  id="semesterDropdown">
+      <select class="form-control btn btn-primary dropdown-toggle col-2"  id="semesterDropdown">
               
         </select>
       &nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
@@ -107,8 +111,10 @@
     <!--<img src="./fullscreen.png" width=20px; class="fullscreenImage" id="fullscreeenPNG" >-->
     <table  id="usersDataTable" border="1" class="table table-hover" ></table>
   </div>
+  <button id="analysisButton" class="btn btn-primary" >Analysis</button>
 
   <div id="completedChartdiv"></div>
+  
 </body>
 <script>
   require('./landing.js')

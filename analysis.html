@@ -1,0 +1,63 @@
+<html>
+
+    <head>
+        <title>
+          Dashboard!
+        </title>
+        
+        <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        
+        <link href="style.css" rel="stylesheet">
+        
+        </head>
+       
+        
+<style>
+  
+  #tablesDiv table{
+    float: left;
+    
+  }
+  #tablesDiv table,th,td{
+    border: 1px solid black;
+    padding: 15;
+    height: 49px;;
+  }
+  </style>
+        <body>
+
+
+    
+<div class="container">
+
+    <table id="analysisTable" border="1" cellpadding="15" align="center"></table>
+
+    <div id="tablesDiv" >
+      <table  >
+        <tr><td style="height:49px"></td></tr>
+        <tr><td style="height:49px"></td></tr>
+        <tr><td>CCC</td></tr>
+        <tr><td>CSI</td></tr>
+        <tr><td>THE PIT</td></tr>
+        <tr><td>OPERATIONS</td></tr>
+        <tr><td>CALSTATE LA</td></tr>
+        <tr><td>U-SU</td></tr>
+        <tr><td>GRAFFIX</td></tr>
+        <tr><td>FISCAL YEAR</td></tr>
+        <tr><td>TOTAL</td></tr>
+
+        </table>
+      </div>
+    </div>
+    </body>
+    <script>
+  
+  require('./renderer.js')
+  
+</script>
+</html>

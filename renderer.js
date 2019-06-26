@@ -135,7 +135,9 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
 
     uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
     console.log('File available at', downloadURL);
-    var uploadSemester=document.getElementById("semesterUploadDropDown").value;
+    var uploadSemesterName=document.getElementById("semesterUploadDropDown").value;
+    var uploadSemesterYear=document.getElementById("semesterUploadDropDownYear").value;
+    var uploadSemester=uploadSemesterName+" "+uploadSemesterYear;
     csvtoJson(downloadURL,uploadSemester);
     var ref = firebase.database().ref('/'+uploadSemester);
     //For last updated timestamp - pushing at last of json obj to firebase.
@@ -990,3 +992,5 @@ series.hiddenState.properties.endAngle = 90;
 chart.legend = new am4charts.Legend();
 }
 }
+
+require('./analysis.js')
