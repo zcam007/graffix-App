@@ -106,6 +106,61 @@ const loadAnalysisTable=()=>{
 // }
 
 
+const checkBoxLoad=()=>{
+
+var checkboxDiv=document.querySelector('#checkBoxDiv');
+firebase.database().ref('/').once('value').then(function(snapshot) {
+    var jsonArr=snapshotToArray(snapshot);
+    console.log(jsonArr[1]["key"]);
+    for(var i=0;i<jsonArr.length;i++)
+    {
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "semester";
+        checkbox.value = jsonArr[i]["key"];
+        checkbox.id = "checkbox_id";
+        
+        var label = document.createElement('label')
+        label.htmlFor = "id";
+        label.appendChild(document.createTextNode(jsonArr[i]["key"]));
+        
+        checkboxDiv.appendChild(checkbox);
+        checkboxDiv.appendChild(label);  
+    }
+    
+    var el = document.getElementById('checkBoxDiv');
+    var checkboxes = el.getElementsByTagName('input');
+
+// assign function to onclick property of each checkbox
+for (var i=0, len=checkboxes.length; i<len; i++) {
+    if ( checkboxes[i].type === 'checkbox' ) {
+        checkboxes[i].onclick = function() {
+            // put your awesome code here
+            var favorite = [];
+            $.each($("input[name='semester']:checked"), function(){            
+                favorite.push($(this).val());
+            });
+            console.log(favorite);
+            document.getElementById('tablesDiv').innerHTML='';
+            loadTables(favorite);
+        }
+    }
+}
+
+});
+
+
+}
+
+checkBoxLoad()
+const loadTables=(tables)=>
+{
+    for(var i=0;i<tables.length;i++){
+        newtable(tables[i]);
+    }
+}
+
+
 const newtable=(semsesterName)=>{
     var table=document.createElement('table');
     var th=document.createElement('th');
@@ -257,11 +312,11 @@ const columnSumOfMatrix=(arr)=>{
        return res;
 }
 
-if(document.querySelector('#analysisTable')!=null){
+if(document.querySelector('#tablesDiv')!=null){
   
     //loadAnalysisTable();
-    newtable("Summer 2019");
-    newtable("Fall 2018");
+   // newtable("Summer 2019");
+    //newtable("Fall 2018");
     //createTotalTable();
     }
 // get count functions
