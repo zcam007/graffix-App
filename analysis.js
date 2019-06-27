@@ -136,13 +136,13 @@ for (var i=0, len=checkboxes.length; i<len; i++) {
     if ( checkboxes[i].type === 'checkbox' ) {
         checkboxes[i].onclick = function() {
             // put your awesome code here
-            var favorite = [];
+            var checkedSemesters = [];
             $.each($("input[name='semester']:checked"), function(){            
-                favorite.push($(this).val());
+                checkedSemesters.push($(this).val());
             });
-            console.log(favorite);
+            console.log(checkedSemesters);
             document.getElementById('tablesDiv').innerHTML='';
-            loadTables(favorite);
+            loadTables(checkedSemesters);
         }
     }
 }
