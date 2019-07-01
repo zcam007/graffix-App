@@ -106,6 +106,67 @@ const loadAnalysisTable=()=>{
 // }
 
 
+const checkBoxLoad=()=>{
+
+var checkboxDiv=document.querySelector('#checkBoxDiv');
+firebase.database().ref('/').once('value').then(function(snapshot) {
+    var jsonArr=snapshotToArray(snapshot);
+    console.log(jsonArr[1]["key"]);
+    for(var i=0;i<jsonArr.length;i++)
+    {
+        var checkbox = document.createElement('input');
+        checkbox.type = "checkbox";
+        checkbox.name = "semester";
+        checkbox.value = jsonArr[i]["key"];
+        checkbox.id = "checkbox_id";
+        checkbox.checked=true;
+        var label = document.createElement('label')
+        label.htmlFor = "id";
+        label.appendChild(document.createTextNode(jsonArr[i]["key"]));
+        
+        checkboxDiv.appendChild(checkbox);
+        checkboxDiv.appendChild(label);  
+    }
+    
+    var el = document.getElementById('checkBoxDiv');
+    var checkboxes = el.getElementsByTagName('input');
+    loadTablesFromCheckedboxes()
+   
+// assign function to onclick property of each checkbox
+for (var i=0, len=checkboxes.length; i<len; i++) {
+    if ( checkboxes[i].type === 'checkbox' ) {
+        checkboxes[i].onclick = function() {
+            // put your awesome code here
+            loadTablesFromCheckedboxes();
+        }
+    }
+}
+});
+
+
+}
+
+
+const loadTablesFromCheckedboxes=()=>{
+    var checkedSemesters = [];
+    $.each($("input[name='semester']:checked"), function(){            
+        checkedSemesters.push($(this).val());
+    });
+    console.log(checkedSemesters);
+    document.getElementById('tablesDiv').innerHTML='';
+    loadTables(checkedSemesters);
+}
+
+checkBoxLoad()
+
+const loadTables=(tables)=>
+{
+    for(var i=0;i<tables.length;i++){
+        newtable(tables[i]);
+    }
+}
+
+
 const newtable=(semsesterName)=>{
     var table=document.createElement('table');
     var th=document.createElement('th');
@@ -138,12 +199,12 @@ const newtable=(semsesterName)=>{
     firebase.database().ref('/'+semsesterName).once('value').then(function(snapshot) {
         var jsonArr=snapshotToArray(snapshot);
        // console.log(jsonArr);
-    console.log(getDeptCount(jsonArr,"ccc"));
-    console.log(getCAMcount(jsonArr,"ccc"));
-    console.log(getShirtCount(jsonArr,"ccc"));
-    console.log(getWebCount(jsonArr,"ccc"));
-    console.log(getCancelCount(jsonArr,"ccc"));
-    console.log(getCAM_SCount(jsonArr,"ccc"));
+    // console.log(getDeptCount(jsonArr,"ccc"));
+    // console.log(getCAMcount(jsonArr,"ccc"));
+    // console.log(getShirtCount(jsonArr,"ccc"));
+    // console.log(getWebCount(jsonArr,"ccc"));
+    // console.log(getCancelCount(jsonArr,"ccc"));
+    // console.log(getCAM_SCount(jsonArr,"ccc"));
     //let matrix=[[]];
     var matrix = Create2DArray(8);
     var departments=["ccc","csi","the pit","xtreme","operations","csula","u-su","graffix"]
@@ -165,12 +226,12 @@ const newtable=(semsesterName)=>{
     matrix[i][5]=cancelCount;
     rowCount=i;
     }
-    console.log(matrix);
+    //console.log(matrix);
     let columnSum=columnSumOfMatrix(matrix);
     matrix[rowCount+1]=columnSum;
     let totalCount=0;
     
-    console.log(columnSum);
+    //console.log(columnSum);
     for(var i=0;i<columnSum.length-1;i++){
         totalCount+=columnSum[i];
     }
@@ -257,11 +318,11 @@ const columnSumOfMatrix=(arr)=>{
        return res;
 }
 
-if(document.querySelector('#analysisTable')!=null){
+if(document.querySelector('#tablesDiv')!=null){
   
     //loadAnalysisTable();
-    newtable("Summer 2019");
-    newtable("Fall 2018");
+   // newtable("Summer 2019");
+    //newtable("Fall 2018");
     //createTotalTable();
     }
 // get count functions
@@ -399,3 +460,10 @@ function Create2DArray(rows) {
   
     return arr;
   }
+
+document.querySelector('#goBackToAdminBtn').addEventListener('click',function(){
+
+    document.location.href="admin.html"
+})
+
+  
