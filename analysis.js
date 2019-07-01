@@ -109,6 +109,7 @@ const loadAnalysisTable=()=>{
 const checkBoxLoad=()=>{
 
 var checkboxDiv=document.querySelector('#checkBoxDiv');
+if(checkboxDiv!=null){
 firebase.database().ref('/').once('value').then(function(snapshot) {
     var jsonArr=snapshotToArray(snapshot);
     console.log(jsonArr[1]["key"]);
@@ -142,7 +143,7 @@ for (var i=0, len=checkboxes.length; i<len; i++) {
     }
 }
 });
-
+}
 
 }
 
@@ -461,9 +462,11 @@ function Create2DArray(rows) {
     return arr;
   }
 
+  if(document.querySelector('#goBackToAdminBtn')!=null){
 document.querySelector('#goBackToAdminBtn').addEventListener('click',function(){
 
     document.location.href="admin.html"
 })
+  }
 
   
