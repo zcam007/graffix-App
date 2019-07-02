@@ -994,3 +994,4 @@ chart.legend = new am4charts.Legend();
 }
 
 require('./analysis.js')
+require('./sql.js')

@@ -1,6 +1,7 @@
 var mysql = require('mysql');
 var fs = require("fs");
 var creds=require("./credentials.js")
+var firebase=require('./firebase/firebase.js');
 var connection = mysql.createConnection(creds.calstalelausu);
 document.getElementById('downloadDatabase').addEventListener('click',function(){
   // connect to mysql
@@ -23,16 +24,24 @@ document.getElementById('downloadDatabase').addEventListener('click',function(){
           console.log(err);
           return;
       }
-      console.log(rows);
+      var ref = firebase.database().ref('/Fall 2019');
+      //ref.push(rows);
+      for(var i=0;i<rows.length;i++){
+        ref.push(rows[i]);
+      }
+      console.log(rows.length);
       var json2xls = require('json2xls');
       var xls = json2xls(rows);
-  console.log(__dirname);
+  //console.log(__dirname);
   var path = require('path');
   var DOWNLOAD_DIR = path.join(process.env.HOME || process.env.USERPROFILE, 'downloads/');
-  console.log(DOWNLOAD_DIR);
-  fs.writeFileSync(DOWNLOAD_DIR+'/requestdata.xlsx', xls, 'binary');
-alert('File Download Success');
+  //console.log(DOWNLOAD_DIR);
+  
+  //fs.writeFileSync(DOWNLOAD_DIR+'/requestdata.xlsx', xls, 'binary');
+//alert('File Download Success');
   });
+
+  
   // Close the connection
   connection.end(function(){
       // The connection has been closed
