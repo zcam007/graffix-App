@@ -1,6 +1,6 @@
 {
   "name": "GraffixApp",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "description": "An app that shows the projects of students.",
   "main": "main.js",
   "scripts": {
