@@ -127,7 +127,7 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
       }
   }, (error) => {
     // Handle unsuccessful uploads
-     alert("Upload Unsuccesfull.. Please try again!");
+     alert("Upload Error.. Please try again!");
     console.log(error);
   }, () => {
      // Do something once upload is complete
