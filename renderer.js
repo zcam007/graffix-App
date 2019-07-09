@@ -110,7 +110,6 @@ else
 }
 
 }
-
 if(document.querySelector('.file-submit')!=null){
 document.querySelector('.file-submit').addEventListener('click', function(e){
   const uploadTask = storageRef.child(`${"log"}`).put(selectedFile); //create a child directory called images, and place the file inside this directory
