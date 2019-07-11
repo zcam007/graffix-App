@@ -3,7 +3,7 @@
 Under development!
 
 <p align="center">
-  <img src="assets/screenvideo.gif" width="600" alt="GIF"/><br>
+  <img src="assets/screenvideo.gif" width="1000" alt="GIF"/><br>
 
 ## License
 
