@@ -410,7 +410,9 @@ var tableHeaders=[
     "CAM-S Request",
     "Plasma",
     "Jpeg",
-    "Social Media"
+    "Social Media",
+    "Notes",
+    "Qty"
 ];
 var colors=[];
 colors[5]="sContact"
@@ -418,6 +420,7 @@ colors[8]="sBlurb"
 colors[11]="sFirstDraft";
 colors[12]="sToPrint";
 colors[13]="sColorPoster";
+colors[14]="sThemeRequestercopy";
 colors[15]="sPostCard";
 colors[16]="sPostCard";
 colors[17]="s13sheet";
