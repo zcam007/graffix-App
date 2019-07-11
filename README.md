@@ -1,6 +1,9 @@
 # Graffix-App
 
-Still in coding phase.
+Under development!
+
+<p align="center">
+  <img src="assets/screenvideo.gif" width="600" alt="GIF"/><br>
 
 ## License
 
