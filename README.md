@@ -2,6 +2,7 @@
 
 Under development!
 
+# An app for University-Student Union at California State University, Los Angeles.
 <p align="center">
   <img src="assets/screenvideo.gif" width="600" alt="GIF"/><br>
 
