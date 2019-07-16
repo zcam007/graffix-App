@@ -344,9 +344,6 @@ var filtered = newArr.filter(function (el) {
 return filtered;
 
 }
-
-
-
 function headersclick()
 {
   //var k=do
