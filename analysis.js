@@ -207,8 +207,8 @@ const newtable=(semsesterName)=>{
     // console.log(getCancelCount(jsonArr,"ccc"));
     // console.log(getCAM_SCount(jsonArr,"ccc"));
     //let matrix=[[]];
-    var matrix = Create2DArray(8);
-    var departments=["ccc","csi","the pit","xtreme","operations","csula","u-su","graffix"]
+    var matrix = Create2DArray(9);
+    var departments=["ccc","csi","the pit","xtreme","recreation","operations","csula","u-su","graffix"]
     var rowCount=0;
     for(var i=0;i<departments.length;i++){
     let deptCount=getDeptCount(jsonArr,departments[i]);
@@ -237,7 +237,7 @@ const newtable=(semsesterName)=>{
         totalCount+=columnSum[i];
     }
 
-    for(var i=0;i<9;i++)
+    for(var i=0;i<10;i++)
     {
         tr[i]=document.createElement('tr');
         for(var j=0;j<6;j++)
@@ -296,7 +296,7 @@ const createTotalTable=()=>
     var td=document.createElement('td');
     
     td.setAttribute("rowspan","0");
-    td.setAttribute("style","height:539px");
+    td.setAttribute("style","height:588px");
     td.setAttribute("id","totalValue")
     text=document.createTextNode(calcGrandTotal());
     td.appendChild(text);
