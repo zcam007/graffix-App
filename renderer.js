@@ -208,6 +208,9 @@ if(document.querySelector('#semesterDropdown')!=null)
         option.id=jsonArr[i]["key"];
         x.add(option);
     }
+    if(store.get('selectedSemester')==undefined){
+        console.log("******Initial Semester Log*******")
+    }else
     document.getElementById(store.get('selectedSemester')).selected=true;
     dataLoadInit();
   });
