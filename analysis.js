@@ -8,61 +8,63 @@ document.querySelector('#analysisButton').addEventListener('click',function(){
 
 });
 }
-const loadAnalysisTable=()=>{
+
+//! Deprecated Code !
+// // const loadAnalysisTable=()=>{
     
-    var table=document.querySelector('#analysisTable');
-    var tr1=document.createElement('tr');
-    var th1=[]
-    var tr1Headings=["SUMMER", "FALL","SPRING"]
-    tr1.appendChild(document.createElement('td'));//empty 1st cell in 1st row
-    for(var i=0;i<3;i++)
-    {
-        th1[i]=document.createElement('th');
-        var text=document.createTextNode(tr1Headings[i]);
-        th1[i].setAttribute("colspan", "6");
-        th1[i].appendChild(text);
-        tr1.appendChild(th1[i]);
-    }
+// //     var table=document.querySelector('#analysisTable');
+// //     var tr1=document.createElement('tr');
+// //     var th1=[]
+// //     var tr1Headings=["SUMMER", "FALL","SPRING"]
+// //     tr1.appendChild(document.createElement('td'));//empty 1st cell in 1st row
+// //     for(var i=0;i<3;i++)
+// //     {
+// //         th1[i]=document.createElement('th');
+// //         var text=document.createTextNode(tr1Headings[i]);
+// //         th1[i].setAttribute("colspan", "6");
+// //         th1[i].appendChild(text);
+// //         tr1.appendChild(th1[i]);
+// //     }
 
-    var tr2Headings=["CAM", "CAM-S","THEME","SHIRT","WEB","CANCEL"];
-    var tr2=document.createElement('tr');
-    var tdArr=[]
-    tr2.appendChild(document.createElement('td')); //empty 1st cell in 2nd row
-    for(var i=0;i<18;i=i+6)
-    {
-        for(var j=0;j<6;j++){
-        tdArr[i]=document.createElement('td');
-        var text=document.createTextNode(tr2Headings[j]);
-        tdArr[i].appendChild(text);
-        tr2.appendChild(tdArr[i]);
-        }
-    }
-    table.appendChild(tr1);
-    table.appendChild(tr2);
-    //remaining 9 rows - CCC - CSI- PIT - OPERATION - CALSTATE LA - USU - GRAFFIX -FISCALYEAR - TOTAL
-    var rem_row_headings=["CCC","CSI","THE PIT","OPERATIONS","CALSTATE LA","U-SU","GRAFFIX","YEAR TOTAL","TOTAL"]
+// //     var tr2Headings=["CAM", "CAM-S","THEME","SHIRT","WEB","CANCEL"];
+// //     var tr2=document.createElement('tr');
+// //     var tdArr=[]
+// //     tr2.appendChild(document.createElement('td')); //empty 1st cell in 2nd row
+// //     for(var i=0;i<18;i=i+6)
+// //     {
+// //         for(var j=0;j<6;j++){
+// //         tdArr[i]=document.createElement('td');
+// //         var text=document.createTextNode(tr2Headings[j]);
+// //         tdArr[i].appendChild(text);
+// //         tr2.appendChild(tdArr[i]);
+// //         }
+// //     }
+// //     table.appendChild(tr1);
+// //     table.appendChild(tr2);
+// //     //remaining 9 rows - CCC - CSI- PIT - OPERATION - CALSTATE LA - USU - GRAFFIX -FISCALYEAR - TOTAL
+// //     var rem_row_headings=["CCC","CSI","THE PIT","OPERATIONS","CALSTATE LA","U-SU","GRAFFIX","YEAR TOTAL","TOTAL"]
 
-    var rem_tr=[];
-    var rem_td=[];
-    for(var i=0;i<9;i++)
-    {
-         rem_tr[i]=document.createElement('tr');
+// //     var rem_tr=[];
+// //     var rem_td=[];
+// //     for(var i=0;i<9;i++)
+// //     {
+// //          rem_tr[i]=document.createElement('tr');
         
-         var td=document.createElement('td');
-         var text=document.createTextNode(rem_row_headings[i]);
-         td.appendChild(text);
-         rem_tr[i].appendChild(td);
-         for(var j=0;j<18;j++){
-         rem_td[j]=document.createElement('td');
-         var text=document.createTextNode("");
-         rem_td[j].appendChild(text);
-         rem_tr[i].appendChild(rem_td[j]);
-         }
-         table.appendChild(rem_tr[i]);
-    }
+// //          var td=document.createElement('td');
+// //          var text=document.createTextNode(rem_row_headings[i]);
+// //          td.appendChild(text);
+// //          rem_tr[i].appendChild(td);
+// //          for(var j=0;j<18;j++){
+// //          rem_td[j]=document.createElement('td');
+// //          var text=document.createTextNode("");
+// //          rem_td[j].appendChild(text);
+// //          rem_tr[i].appendChild(rem_td[j]);
+// //          }
+// //          table.appendChild(rem_tr[i]);
+// //     }
 
    
-}
+// // }
 
 
 
@@ -70,41 +72,41 @@ const loadAnalysisTable=()=>{
 
 
 
-// const getCountMatrix=(semester)=>{
-// firebase.database().ref('/'+semester).once('value').then(function(snapshot) {
-//     var jsonArr=snapshotToArray(snapshot);
-//    // console.log(jsonArr);
-// console.log(getDeptCount(jsonArr,"ccc"));
-// console.log(getCAMcount(jsonArr,"ccc"));
-// console.log(getShirtCount(jsonArr,"ccc"));
-// console.log(getWebCount(jsonArr,"ccc"));
-// console.log(getCancelCount(jsonArr,"ccc"));
-// console.log(getCAM_SCount(jsonArr,"ccc"));
-// //let matrix=[[]];
-// var matrix = Create2DArray(8);
-// var departments=["ccc","csi","the pit","xtreme","operation","csula","u-su","graffix"]
-// for(var i=0;i<departments.length;i++){
-// let deptCount=getDeptCount(jsonArr,departments[i]);
-// let camCount=getCAMcount(jsonArr,departments[i]);
-// let cam_sCount=getCAM_SCount(jsonArr,departments[i])
-// let shirtCount=getShirtCount(jsonArr,departments[i]);
-// let webCount=getWebCount(jsonArr,departments[i])
-// let cancelCount=getCancelCount(jsonArr,departments[i]);
-// let themeCount=deptCount-(camCount+cam_sCount+shirtCount+webCount);
+// // const getCountMatrix=(semester)=>{
+// // firebase.database().ref('/'+semester).once('value').then(function(snapshot) {
+// //     var jsonArr=snapshotToArray(snapshot);
+// //    // console.log(jsonArr);
+// // console.log(getDeptCount(jsonArr,"ccc"));
+// // console.log(getCAMcount(jsonArr,"ccc"));
+// // console.log(getShirtCount(jsonArr,"ccc"));
+// // console.log(getWebCount(jsonArr,"ccc"));
+// // console.log(getCancelCount(jsonArr,"ccc"));
+// // console.log(getCAM_SCount(jsonArr,"ccc"));
+// // //let matrix=[[]];
+// // var matrix = Create2DArray(8);
+// // var departments=["ccc","csi","the pit","xtreme","operation","csula","u-su","graffix"]
+// // for(var i=0;i<departments.length;i++){
+// // let deptCount=getDeptCount(jsonArr,departments[i]);
+// // let camCount=getCAMcount(jsonArr,departments[i]);
+// // let cam_sCount=getCAM_SCount(jsonArr,departments[i])
+// // let shirtCount=getShirtCount(jsonArr,departments[i]);
+// // let webCount=getWebCount(jsonArr,departments[i])
+// // let cancelCount=getCancelCount(jsonArr,departments[i]);
+// // let themeCount=deptCount-(camCount+cam_sCount+shirtCount+webCount);
 
-// matrix[i][0]=camCount;
-// matrix[i][1]=cam_sCount;
-// matrix[i][2]=themeCount;
-// matrix[i][3]=shirtCount;
-// matrix[i][4]=webCount;
-// matrix[i][5]=cancelCount;
+// // matrix[i][0]=camCount;
+// // matrix[i][1]=cam_sCount;
+// // matrix[i][2]=themeCount;
+// // matrix[i][3]=shirtCount;
+// // matrix[i][4]=webCount;
+// // matrix[i][5]=cancelCount;
 
-// }
-// console.log(matrix);
-// return matrix;
-// });
-// }
-
+// // }
+// // console.log(matrix);
+// // return matrix;
+// // });
+// // }
+//      ! END ! 
 
 const checkBoxLoad=()=>{
 
@@ -112,7 +114,7 @@ var checkboxDiv=document.querySelector('#checkBoxDiv');
 if(checkboxDiv!=null){
 firebase.database().ref('/').once('value').then(function(snapshot) {
     var jsonArr=snapshotToArray(snapshot);
-    console.log(jsonArr[1]["key"]);
+    //console.log(jsonArr[1]["key"]);
     for(var i=0;i<jsonArr.length;i++)
     {
         var checkbox = document.createElement('input');
@@ -158,7 +160,7 @@ const loadTablesFromCheckedboxes=()=>{
     loadTables(checkedSemesters);
 }
 
-checkBoxLoad()
+checkBoxLoad();
 
 const loadTables=(tables)=>
 {

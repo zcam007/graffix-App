@@ -15,7 +15,8 @@ var creds=require("./credentials.js")
 require('./jquery.min.js')
 firebase.initializeApp(creds.calstalelausufirebase);
 var Chart = require('chart.js');
-
+const Store = require('electron-store');
+const store = new Store();
 
 var signInbtn=document.getElementById('signinbtn');
   if(signInbtn!=null){
@@ -204,16 +205,21 @@ if(document.querySelector('#semesterDropdown')!=null)
         var option = document.createElement("option");
         option.text = jsonArr[i]["key"];
         option.value=jsonArr[i]["key"];
+        option.id=jsonArr[i]["key"];
         x.add(option);
     }
-    
+    if(store.get('selectedSemester')==undefined){
+        console.log("******Initial Semester Log*******")
+    }else
+    document.getElementById(store.get('selectedSemester')).selected=true;
     dataLoadInit();
   });
      
 }
 
 const dataLoadInit=()=>{
-  var selectedSemester = document.getElementById("semesterDropdown").value; 
+  // var selectedSemester = document.getElementById("semesterDropdown").value; 
+  var selectedSemester= store.get("selectedSemester");
   datapull("usersDataTable");
   getArtists(selectedSemester);
   getPackage(selectedSemester);
@@ -663,9 +669,14 @@ const getSelectedSemester=()=>
 {
   if(document.querySelector('#semesterDropdown')!=null)
   {
-    return document.getElementById("semesterDropdown").value;
+
+store.set('selectedSemester', document.getElementById("semesterDropdown").value);
+ //store.set('selectedSemester', null);
+
+console.log(store.get('selectedSemester'));
+    //return document.getElementById("semesterDropdown").value;
+    return store.get('selectedSemester');
   }
-  
 }
 
 const getTimeStamp=()=>{
