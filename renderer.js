@@ -143,7 +143,7 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
         //             + currentdate.getSeconds();
         var datetime=getTimeStamp();
         ref.set({'timestamp':datetime});
-        console.log("yes")
+ //       console.log("yes")
   }, (error) => {
     // Handle unsuccessful uploads
      alert("Upload Error.. Please try again!");
@@ -372,7 +372,10 @@ function datapull(ID,filterHeader='none')
       lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
     }
   var myObj=snapshot.val();
-  //console.log(jsonArr)
+  
+  var dynamicTableHeaders=Object.keys(jsonArr[0]);
+  console.log(dynamicTableHeaders)
+  //console.log(jsonArr[0])
    jsonArr=filter(jsonArr,filterHeader);
    loadCompletedChart(jsonArr);
   //filter(jsonArr,filterHeader);
@@ -417,6 +420,7 @@ var tableHeaders=[
     "Notes",
     "Qty"
 ];
+//tableHeaders=dynamicTableHeaders
 var colors=[];
 colors[5]="sContact"
 colors[8]="sBlurb"
