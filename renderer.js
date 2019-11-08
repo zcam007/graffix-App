@@ -9,6 +9,8 @@ if(appVObj!=null){
 appVObj.innerHTML="App Version:"+appVersion;
 }
 
+
+
 //imports
 var firebase=require('./firebase/firebase.js');
 var creds=require("./credentials.js")
