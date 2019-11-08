@@ -126,35 +126,34 @@ document.querySelector('.file-submit').addEventListener('click', function(e){
           console.log('Upload is running');
           break;
       }
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log('File available at', downloadURL);
+        var uploadSemesterName=document.getElementById("semesterUploadDropDown").value;
+        var uploadSemesterYear=document.getElementById("semesterUploadDropDownYear").value;
+        var uploadSemester=uploadSemesterName+" "+uploadSemesterYear;
+        csvtoJson(downloadURL,uploadSemester);
+        var ref = firebase.database().ref('/'+uploadSemester);
+        //For last updated timestamp - pushing at last of json obj to firebase.
+        // var currentdate = new Date();
+        // var datetime = (currentdate.getMonth()+1) + "/"
+        //             + currentdate.getDate()  + "/"
+        //             + currentdate.getFullYear() + " @ "
+        //             + currentdate.getHours() + ":"
+        //             + currentdate.getMinutes() + ":"
+        //             + currentdate.getSeconds();
+        var datetime=getTimeStamp();
+        ref.set({'timestamp':datetime});
+ //       console.log("yes")
   }, (error) => {
     // Handle unsuccessful uploads
      alert("Upload Error.. Please try again!");
     console.log(error);
   }, () => {
      // Do something once upload is complete
-
-    uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-    console.log('File available at', downloadURL);
-    var uploadSemesterName=document.getElementById("semesterUploadDropDown").value;
-    var uploadSemesterYear=document.getElementById("semesterUploadDropDownYear").value;
-    var uploadSemester=uploadSemesterName+" "+uploadSemesterYear;
-    csvtoJson(downloadURL,uploadSemester);
-    var ref = firebase.database().ref('/'+uploadSemester);
-    //For last updated timestamp - pushing at last of json obj to firebase.
-    // var currentdate = new Date();
-    // var datetime = (currentdate.getMonth()+1) + "/"
-    //             + currentdate.getDate()  + "/"
-    //             + currentdate.getFullYear() + " @ "
-    //             + currentdate.getHours() + ":"
-    //             + currentdate.getMinutes() + ":"
-    //             + currentdate.getSeconds();
-    var datetime=getTimeStamp();
-    ref.set({'timestamp':datetime});
+     //alert("Upload Succesfull")
+   
 //location.reload();
   });
-     //console.log('success');
-     alert("Upload Succesfull");
-     //
   });
 });
 }
@@ -176,6 +175,7 @@ function csvtoJson(downloadURL,uploadSemester)
   return json;
  },(error)=>{
    console.log(error);
+   alert("Error Uploading! "+error)
  })
  //location.reload();
 }
@@ -372,7 +372,10 @@ function datapull(ID,filterHeader='none')
       lastUpdatedText.innerHTML="Last Updated: "+jsonArr[jsonArr.length-1];
     }
   var myObj=snapshot.val();
-  //console.log(jsonArr)
+  
+  var dynamicTableHeaders=Object.keys(jsonArr[0]);
+  console.log(dynamicTableHeaders)
+  //console.log(jsonArr[0])
    jsonArr=filter(jsonArr,filterHeader);
    loadCompletedChart(jsonArr);
   //filter(jsonArr,filterHeader);
@@ -417,6 +420,7 @@ var tableHeaders=[
     "Notes",
     "Qty"
 ];
+//tableHeaders=dynamicTableHeaders
 var colors=[];
 colors[5]="sContact"
 colors[8]="sBlurb"
