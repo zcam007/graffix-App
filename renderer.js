@@ -9,7 +9,7 @@ if(appVObj!=null){
 appVObj.innerHTML="App Version:"+appVersion;
 }
 
-
+console.log("loaded from web")
 
 //imports
 var firebase=require('./firebase/firebase.js');
