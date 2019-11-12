@@ -9,7 +9,7 @@ if(appVObj!=null){
 appVObj.innerHTML="App Version:"+appVersion;
 }
 
-console.log("loaded from web--test-commit")
+console.log("loaded from web--test-commit-rawgithub")
 
 //imports
 var firebase=require('./firebase/firebase.js');
