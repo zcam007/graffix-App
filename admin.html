@@ -1,0 +1,127 @@
+<html>
+<head>
+<title>
+  Dashboard!
+</title>
+
+<script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://netdna.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<link href="style.css" rel="stylesheet">
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+
+</head>
+
+<body>
+
+
+    
+<div class="container">
+  <button class="btn-sm btn-primary float-right" id="signoutbtn">Sign out</button>
+<div class="roww">
+   <img class="float-left" src="https://www.calstatelausu.org/_assets/Department%20Cover%20Image/GRAFFIXHEADER.png" width="300px"><br><br>
+  <h4>Welcome Admin!</h4>
+</div>
+<!--
+  <div id="filesubmit">
+    <input type="file" class="file-select"/>
+    <button class="file-submit">SUBMIT</button>
+  </div> -->
+  <br><br><br><br>
+
+  <select class="form-control btn btn-primary dropdown-toggle col-lg-2 "   id="semesterUploadDropDown">
+    
+  </select>
+
+  <select class="form-control btn btn-primary dropdown-toggle col-lg-2 "   id="semesterUploadDropDownYear">
+    
+  </select>
+
+  <div id="filesubmit" class="input-group " >
+    <div class="custom-file">
+      <input type="file" class="f custom-file-input file-select" id="inputGroupFile02">
+      <label class="custom-file-label"  for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+
+    </div>
+    <div class="input-group-append file-submit">
+      <button class="btn btn-info" id="inputGroupFileAddon02">Upload</button>
+    </div>
+    <div class="input-group-append ">
+     <!-- <button class="btn btn-warning" id="downloadDatabase" >Download</button>-->
+
+
+      <div class="btn-group">
+  <button type="button" id="downloadbtn" class="btn btn-warning">Download</button>
+  <button type="button" class="btn btn-warning dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    <span class="sr-only">Download</span>
+  </button>
+  <div class="dropdown-menu">
+    <a class="dropdown-item" id="downloadDatabase" href="#">Download From Database</a>
+    
+    <!--<div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="#">Separated link</a>-->
+  </div>
+</div>
+
+
+    </div>
+
+  </div>
+
+
+
+  <div id="file-upload-filename"></div>
+
+
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <select class="form-control btn btn-primary dropdown-toggle "   id="artistDropdown">
+            <option value="All">All Artists</option>
+          </select>
+        </li>
+        <li class="nav-item">
+          <select class="form-control btn btn-primary dropdown-toggle "   id="packageDropdown">
+            <option value="All">All Packages</option>
+          </select>
+        </li>
+       
+      </ul>
+      <select class="form-control btn btn-primary dropdown-toggle col-2"  id="semesterDropdown">
+              
+        </select>
+      &nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
+    </div>
+  </nav>
+
+  
+</div>
+<button id="export-btn" class="btn btn-primary" style="float: right;">Save</button>
+<div class="usersTableDiv fullScreenHover">
+    <!--<img src="./fullscreen.png" width=20px; class="fullscreenImage" id="fullscreeenPNG" >-->
+    <table  id="usersDataTable" border="1" class="table table-hover" ></table>
+  </div>
+  <button id="analysisButton" class="btn btn-primary" >Analysis</button>
+
+  <div id="completedChartdiv"></div>
+  
+</body>
+<script>
+  require('./landing.js')
+  require('./renderer.js')
+  
+</script>
+</html>
+<script>
+ 
+  </script>

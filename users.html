@@ -5,19 +5,21 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
   <!-- <script src="https://www.gstatic.com/firebasejs/5.8.4/firebase.js"></script>-->
   <!--   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 -->
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
     <link href="style.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
   </head>
 
   <!-- //nav bar -->
   <nav class="navbar navbar-expand-lg navbar-light ">
-    <a class="navbar-brand" href=""><img src="/Users/mac/graffix-App/Public/Graffix-Logo.png"  class="d-inline-block align-top" alt=""></a>
+    <a class="navbar-brand" href=""><img src="https://calstatelausu.org/_assets/departments/graffix_logo_med.png"  class="d-inline-block align-top" alt=""></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -33,9 +35,15 @@
             <option value="All">All Packages</option>
           </select>
         </li>
-
+        
 
       </ul>
+      <select class="form-control btn btn-primary dropdown-toggle col-1"  id="semesterDropdown">
+              
+        </select>
+      &nbsp;&nbsp;&nbsp;
+      <button class="btn-sm btn-secondary "  id="goBackBtn">Go Back</button>
+      &nbsp;&nbsp;&nbsp;<small id="lastUpdated" class="text-muted"></small>
     </div>
   </nav>
 <!-- //navbar -->
@@ -43,17 +51,30 @@
 
   <body id="userPageBody">
     <div class="ccontainer">
-
-
+    <!--  <select class="form-control btn btn-primary dropdown-toggle col-3" id="artistDropdown">
+        <option value="All">All Artists</option>
+      </select>
+      <select class="form-control btn btn-primary dropdown-toggle col-3" id="packageDropdown">
+        <option value="All">All Packages</option>
+      </select>-->
 
       <div class="usersTableDiv">
-        <table  id="usersDataTable" border="1" class="table table-hover" ></table>
+        <table  id="usersDataTable"  border="1" class="table tablesorter" ></table>
       </div>
+      <button id="export-btn" class="btn btn-primary" style="display: none">Export Data</button>
+  <p id="export"></p>
     </div>
-
+   
       <script>
       // You can also require other files to run in this process
-      require('./renderer.js')
+        require('./renderer.js')
+    // require('https://raw.githubusercontent.com/zcam007/graffix-App/master/renderer.js')
+      require('./users.js')
+      
+      $(function() {
+        console.log("yes")
+  $("#usersDataTable").tablesorter();
+});
     </script>
   </body>
 </html>

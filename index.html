@@ -34,13 +34,34 @@
       </div>
       <button class="btn btn-lg btn-primary btn-block" id="signinbtn">Admin Sign in</button>
       <button class="btn btn-lg btn-primary btn-block" id="usersigninbtn">User Sign in</button>
+      <script>
+              const ipcRenderer = require('electron').ipcRenderer;
+              // wait for an updateReady message
 
-      <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>
+              ipcRenderer.on('updateReady', function(event, text) {
+                  // changes the text of the button
+                  var container = document.getElementById('ready');
+                  container.innerHTML = "New Update Available!";
+                  container.disabled=false;
+              })
+          </script>
+
+      <center>
+          <p class="mt-5 mb-3 text-muted">&copy; 2019-2020</p>
+      <span id="version"></span>
+      <!-- the button onClick sends a quitAndInstall message to the electron main process -->
+      <button id="ready" disabled onClick="ipcRenderer.send('quitAndInstall')">Up to date</button>
+    </center>
     </div>
   </div>
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
+
+
+
+
+        <script>
+          // You can also require other files to run in this process
+          require('./renderer.js')
+          // require('https://raw.githubusercontent.com/zcam007/graffix-App/master/renderer.js')
+        </script>
   </body>
 </html>

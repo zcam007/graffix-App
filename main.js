@@ -1,26 +1,38 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+//const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, ipcMain} = require('electron');
+const {autoUpdater} = require("electron-updater");
+const { webContents } = require('electron')
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
-
+const path = require('path');
+const Store = require('./storage.js');
+const store = new Store();
+store.init({
+  configName: 'user-preferences',
+  defaults: {
+    // 1280x1080 is the default size of our window
+    windowBounds: { width: 1280, height: 1080 }
+  }
+});
 function createWindow () {
   // Create the browser window.
+  let { width, height } = store.get('windowBounds');
   mainWindow = new BrowserWindow({
-    width: 1280,
-    height: 1080,
+    width: width,
+    height: height,
+    title:"GraffixApp",
     webPreferences: {
       nodeIntegration: true
     }
   })
-
   // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
-
+  mainWindow.loadFile('newIndex.html')
+  //mainWindow.loadFile()
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows
@@ -28,6 +40,20 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  mainWindow.on('close', function () {
+    let size = mainWindow.getSize();
+    let { width, height } = mainWindow.getBounds();
+    // Now that we have them, save them using the `set` method.
+    store.set('windowBounds', { width, height });
+    console.log(size);
+});
+  require('./menu/mainmenu')
+  require('update-electron-app')({
+    updateInterval: '5 minutes',
+    logger: require('electron-log')
+  })
+   autoUpdater.checkForUpdates();
 }
 
 // This method will be called when Electron has finished
@@ -39,6 +65,8 @@ app.on('ready', createWindow)
 app.on('window-all-closed', function () {
   // On macOS it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
+  console.log(__filename);
+  //console.log(webContents.getFocusedWebContents().getURL().replace(/^.*[\\\/]/, ''));
   if (process.platform !== 'darwin') {
     app.quit()
   }
@@ -51,6 +79,18 @@ app.on('activate', function () {
     createWindow()
   }
 })
+autoUpdater.on('update-downloaded', (info) => {
+  console.log("Update downloaded");
+  //autoUpdater.quitAndInstall();
+  app.removeAllListeners("window-all-closed")
+    autoUpdater.quitAndInstall(false)
+   // win.webContents.send('updateReady')
+});
+
+ipcMain.on("quitAndInstall", (event, arg) => {
+   // autoUpdater.quitAndInstall();
+})
+
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.

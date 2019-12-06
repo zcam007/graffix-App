@@ -4,3 +4,5 @@ data.xlsx
 data.csv
 requestdata.xlsx
 .DS_Store
+electron-builder.yml
+dist
