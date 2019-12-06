@@ -1,5 +1,8 @@
 // Modules to control application life and create native browser window
 //const {app, BrowserWindow} = require('electron')
+
+//this cghanges made by stewart
+
 const {app, BrowserWindow, ipcMain} = require('electron');
 const {autoUpdater} = require("electron-updater");
 const { webContents } = require('electron')
