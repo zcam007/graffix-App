@@ -2,7 +2,7 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 
-//APP VERSION 1.2.4
+//APP VERSION 1.2.5 TEST
 
 //Get App Version number
 var appVersion = require('electron').remote.app.getVersion();
